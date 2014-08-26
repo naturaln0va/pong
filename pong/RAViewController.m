@@ -11,9 +11,9 @@
 
 @implementation RAViewController
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
 
     // Configure the view.
     SKView * skView = (SKView *)self.view;
@@ -30,6 +30,10 @@
 
 - (BOOL)shouldAutorotate
 {
+    return YES;
+}
+
+- (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
