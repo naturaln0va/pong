@@ -18,7 +18,6 @@
 		4814D00D19AD2E5100EDD0C8 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4814D00B19AD2E5100EDD0C8 /* Main_iPad.storyboard */; };
 		4814D01019AD2E5100EDD0C8 /* RAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D00F19AD2E5100EDD0C8 /* RAViewController.m */; };
 		4814D01319AD2E5100EDD0C8 /* RAMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D01219AD2E5100EDD0C8 /* RAMyScene.m */; };
-		4814D01519AD2E5100EDD0C8 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 4814D01419AD2E5100EDD0C8 /* Spaceship.png */; };
 		4814D01719AD2E5100EDD0C8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4814D01619AD2E5100EDD0C8 /* Images.xcassets */; };
 		4814D01E19AD2E5100EDD0C8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814D01D19AD2E5100EDD0C8 /* XCTest.framework */; };
 		4814D01F19AD2E5100EDD0C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814CFF419AD2E5100EDD0C8 /* Foundation.framework */; };
@@ -55,7 +54,6 @@
 		4814D00F19AD2E5100EDD0C8 /* RAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RAViewController.m; sourceTree = "<group>"; };
 		4814D01119AD2E5100EDD0C8 /* RAMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RAMyScene.h; sourceTree = "<group>"; };
 		4814D01219AD2E5100EDD0C8 /* RAMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RAMyScene.m; sourceTree = "<group>"; };
-		4814D01419AD2E5100EDD0C8 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		4814D01619AD2E5100EDD0C8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4814D01C19AD2E5100EDD0C8 /* pongTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pongTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4814D01D19AD2E5100EDD0C8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -125,14 +123,12 @@
 			children = (
 				4814D00519AD2E5100EDD0C8 /* RAAppDelegate.h */,
 				4814D00619AD2E5100EDD0C8 /* RAAppDelegate.m */,
-				4814D00819AD2E5100EDD0C8 /* Main_iPhone.storyboard */,
-				4814D00B19AD2E5100EDD0C8 /* Main_iPad.storyboard */,
 				4814D00E19AD2E5100EDD0C8 /* RAViewController.h */,
 				4814D00F19AD2E5100EDD0C8 /* RAViewController.m */,
 				4814D01119AD2E5100EDD0C8 /* RAMyScene.h */,
 				4814D01219AD2E5100EDD0C8 /* RAMyScene.m */,
-				4814D01419AD2E5100EDD0C8 /* Spaceship.png */,
-				4814D01619AD2E5100EDD0C8 /* Images.xcassets */,
+				4814D03419AD2E9600EDD0C8 /* Resources */,
+				4814D03319AD2E7F00EDD0C8 /* Interfaces */,
 				4814CFFD19AD2E5100EDD0C8 /* Supporting Files */,
 			);
 			path = pong;
@@ -165,6 +161,23 @@
 				4814D02619AD2E5100EDD0C8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4814D03319AD2E7F00EDD0C8 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				4814D00819AD2E5100EDD0C8 /* Main_iPhone.storyboard */,
+				4814D00B19AD2E5100EDD0C8 /* Main_iPad.storyboard */,
+			);
+			name = Interfaces;
+			sourceTree = "<group>";
+		};
+		4814D03419AD2E9600EDD0C8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4814D01619AD2E5100EDD0C8 /* Images.xcassets */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,7 +257,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4814D01519AD2E5100EDD0C8 /* Spaceship.png in Resources */,
 				4814D01719AD2E5100EDD0C8 /* Images.xcassets in Resources */,
 				4814D00D19AD2E5100EDD0C8 /* Main_iPad.storyboard in Resources */,
 				4814D00A19AD2E5100EDD0C8 /* Main_iPhone.storyboard in Resources */,
