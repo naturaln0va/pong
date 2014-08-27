@@ -24,7 +24,6 @@
 		4814D02019AD2E5100EDD0C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814CFF819AD2E5100EDD0C8 /* UIKit.framework */; };
 		4814D02819AD2E5100EDD0C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4814D02619AD2E5100EDD0C8 /* InfoPlist.strings */; };
 		4814D02A19AD2E5100EDD0C8 /* pongTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D02919AD2E5100EDD0C8 /* pongTests.m */; };
-		4814D03719AD345A00EDD0C8 /* RAPaddle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D03619AD345A00EDD0C8 /* RAPaddle.m */; };
 		4814D03919AD383B00EDD0C8 /* images.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4814D03819AD383B00EDD0C8 /* images.atlas */; };
 /* End PBXBuildFile section */
 
@@ -62,8 +61,6 @@
 		4814D02519AD2E5100EDD0C8 /* pongTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "pongTests-Info.plist"; sourceTree = "<group>"; };
 		4814D02719AD2E5100EDD0C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4814D02919AD2E5100EDD0C8 /* pongTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pongTests.m; sourceTree = "<group>"; };
-		4814D03519AD345A00EDD0C8 /* RAPaddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAPaddle.h; sourceTree = "<group>"; };
-		4814D03619AD345A00EDD0C8 /* RAPaddle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAPaddle.m; sourceTree = "<group>"; };
 		4814D03819AD383B00EDD0C8 /* images.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = images.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,8 +128,6 @@
 				4814CFFD19AD2E5100EDD0C8 /* Supporting Files */,
 				4814D01119AD2E5100EDD0C8 /* RAMyScene.h */,
 				4814D01219AD2E5100EDD0C8 /* RAMyScene.m */,
-				4814D03519AD345A00EDD0C8 /* RAPaddle.h */,
-				4814D03619AD345A00EDD0C8 /* RAPaddle.m */,
 			);
 			path = pong;
 			sourceTree = "<group>";
@@ -292,7 +287,6 @@
 				4814D01319AD2E5100EDD0C8 /* RAMyScene.m in Sources */,
 				4814D00719AD2E5100EDD0C8 /* RAAppDelegate.m in Sources */,
 				4814D01019AD2E5100EDD0C8 /* RAViewController.m in Sources */,
-				4814D03719AD345A00EDD0C8 /* RAPaddle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +503,7 @@
 				4814D02F19AD2E5100EDD0C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4814D03019AD2E5100EDD0C8 /* Build configuration list for PBXNativeTarget "pongTests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +512,7 @@
 				4814D03219AD2E5100EDD0C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
