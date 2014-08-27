@@ -10,6 +10,4 @@
 
 @interface RAPaddle : SKSpriteNode
 
-@property (nonatomic) CGPoint location;
-
 @end

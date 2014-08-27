@@ -10,11 +10,4 @@
 
 @implementation RAPaddle
 
-- (instancetype)initAtPosistion:(CGPoint)position {
-    RAPaddle *paddle = [RAPaddle spriteNodeWithImageNamed:@"Paddle"];
-    
-    
-    return paddle;
-}
-
 @end

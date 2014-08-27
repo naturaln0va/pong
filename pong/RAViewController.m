@@ -9,23 +9,25 @@
 #import "RAViewController.h"
 #import "RAMyScene.h"
 
-@implementation RAViewController
+@implementation RAViewController {
+    SKView *_skView;
+    RAMyScene *_scene;
+}
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewWillLayoutSubviews
 {
-    [super viewWillAppear:animated];
-
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+    [super viewWillLayoutSubviews];
     
-    // Create and configure the scene.
-    SKScene * scene = [RAMyScene sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
+    if (!_skView) {
+        _skView =
+        [[SKView alloc] initWithFrame:self.view.bounds];
+        
+        _scene = [RAMyScene sceneWithSize:_skView.bounds.size];
+        _scene.scaleMode = SKSceneScaleModeAspectFill;
+        
+        [_skView presentScene:_scene];
+        [self.view addSubview:_skView];
+    }
 }
 
 - (BOOL)shouldAutorotate
@@ -33,7 +35,8 @@
     return YES;
 }
 
-- (BOOL)prefersStatusBarHidden {
+- (BOOL)prefersStatusBarHidden
+{
     return YES;
 }
 
