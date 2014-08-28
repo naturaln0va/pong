@@ -29,7 +29,8 @@ typedef NS_OPTIONS(int, EntityCategory) {
 #define PADDLE_HEIGHT       80.0
 #define ARC4RANDOM_MAX      0x100000000
 #define PADDLE_SPEED        0.13245
-#define COMPUTER_SPEED      178.0
+#define COMPUTER_SPEED      278.0
+#define COMPUTER_DEACCEL    122.0
 
 #define BALL_INITIAL_SPEED  189.0
 #define BALL_SPEED          150.0
@@ -212,14 +213,18 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 #pragma mark - Update
 
 -(void)moveComputerPaddle {
-    if (_ball.position.x <= (CGRectGetWidth(self.frame) / 2)) {
+    if (_ball.position.x <= (CGRectGetWidth(self.frame) / 2.8)) {
         
         if (_ball.position.y > _computerPaddle.position.y) {
-            _computerPaddle.position = CGPointMake(_computerPaddle.position.x,
-                                                   _computerPaddle.position.y + _dt * COMPUTER_SPEED);
+            _computerPaddle.physicsBody.velocity = CGVectorMake(_computerPaddle.physicsBody.velocity.dx, _computerPaddle.physicsBody.velocity.dy + _dt * COMPUTER_SPEED);
         } else if (_ball.position.y < _computerPaddle.position.y) {
-            _computerPaddle.position = CGPointMake(_computerPaddle.position.x,
-                                                  _computerPaddle.position.y - _dt * COMPUTER_SPEED);
+            _computerPaddle.physicsBody.velocity = CGVectorMake(_computerPaddle.physicsBody.velocity.dx, _computerPaddle.physicsBody.velocity.dy - _dt * COMPUTER_SPEED);
+        }
+    } else {
+        if (_computerPaddle.physicsBody.velocity.dy > 0.0f) {
+            _computerPaddle.physicsBody.velocity = CGVectorMake(_computerPaddle.physicsBody.velocity.dx, _computerPaddle.physicsBody.velocity.dy - _dt * COMPUTER_DEACCEL);
+        } else if (_computerPaddle.physicsBody.velocity.dy < 0.0f) {
+            _computerPaddle.physicsBody.velocity = CGVectorMake(_computerPaddle.physicsBody.velocity.dx, _computerPaddle.physicsBody.velocity.dy + _dt * COMPUTER_DEACCEL);
         }
     }
 }
@@ -247,7 +252,7 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
     _lastUpdateTime = currentTime;
     [self checkBoundryForBall];
     [self moveComputerPaddle];
-    NSLog(@"%f", _playerPaddle.speed);
+    NSLog(@"%f", _computerPaddle.physicsBody.velocity.dy);
 }
 
 #pragma mark - Collision Detection
