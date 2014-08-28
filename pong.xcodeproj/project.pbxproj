@@ -24,7 +24,6 @@
 		4814D02019AD2E5100EDD0C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814CFF819AD2E5100EDD0C8 /* UIKit.framework */; };
 		4814D02819AD2E5100EDD0C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4814D02619AD2E5100EDD0C8 /* InfoPlist.strings */; };
 		4814D02A19AD2E5100EDD0C8 /* pongTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D02919AD2E5100EDD0C8 /* pongTests.m */; };
-		4814D03919AD383B00EDD0C8 /* images.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4814D03819AD383B00EDD0C8 /* images.atlas */; };
 		481B698819AFB0F4008F27CD /* bong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 481B698719AFB0F4008F27CD /* bong.wav */; };
 		485D4C9819AEB7BE00D9EF75 /* bounce.wav in Resources */ = {isa = PBXBuildFile; fileRef = 485D4C9719AEB7BE00D9EF75 /* bounce.wav */; };
 /* End PBXBuildFile section */
@@ -63,7 +62,6 @@
 		4814D02519AD2E5100EDD0C8 /* pongTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "pongTests-Info.plist"; sourceTree = "<group>"; };
 		4814D02719AD2E5100EDD0C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4814D02919AD2E5100EDD0C8 /* pongTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pongTests.m; sourceTree = "<group>"; };
-		4814D03819AD383B00EDD0C8 /* images.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = images.atlas; sourceTree = "<group>"; };
 		481B698719AFB0F4008F27CD /* bong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bong.wav; sourceTree = "<group>"; };
 		485D4C9719AEB7BE00D9EF75 /* bounce.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bounce.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,7 +181,6 @@
 			children = (
 				481B698719AFB0F4008F27CD /* bong.wav */,
 				485D4C9719AEB7BE00D9EF75 /* bounce.wav */,
-				4814D03819AD383B00EDD0C8 /* images.atlas */,
 				4814D01619AD2E5100EDD0C8 /* Images.xcassets */,
 			);
 			name = Resources;
@@ -269,7 +266,6 @@
 				481B698819AFB0F4008F27CD /* bong.wav in Resources */,
 				4814D01719AD2E5100EDD0C8 /* Images.xcassets in Resources */,
 				4814D00D19AD2E5100EDD0C8 /* Main_iPad.storyboard in Resources */,
-				4814D03919AD383B00EDD0C8 /* images.atlas in Resources */,
 				4814D00A19AD2E5100EDD0C8 /* Main_iPhone.storyboard in Resources */,
 				485D4C9819AEB7BE00D9EF75 /* bounce.wav in Resources */,
 				4814D00119AD2E5100EDD0C8 /* InfoPlist.strings in Resources */,

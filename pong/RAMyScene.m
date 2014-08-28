@@ -18,19 +18,23 @@ typedef NS_ENUM(int, Layer) {
 
 typedef NS_OPTIONS(int, EntityCategory) {
     EntityCategoryPaddle = 1 << 0,
-    EntityCategoryBall = 1 << 1,
-    EntityCategoryBorder = 1 << 2
+    EntityCategoryBall = 1 << 1
 };
 
 #define IPAD_MULT_FACTOR    2.0
 #define IPAD_BALL_SPEED     385.0
 
-#define PADDLE_PADDING      45
+#define PADDLE_PADDING      45.0
+#define PADDLE_WIDTH        12.0
+#define PADDLE_HEIGHT       80.0
 #define ARC4RANDOM_MAX      0x100000000
 #define PADDLE_SPEED        0.13245
-#define COMPUTER_SPEED      0.04321
+#define COMPUTER_SPEED      178.0
+
 #define BALL_INITIAL_SPEED  189.0
 #define BALL_SPEED          150.0
+#define BALL_SIZE           11.0
+#define BALL_SCORE_CHECK    47.0
 
 static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
     return floorf(((double)arc4random() / ARC4RANDOM_MAX) * (max - min) + min);
@@ -47,6 +51,7 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
     
     SKAction *_bounceSound;
     SKAction *_bongSound;
+    SKAction *_spawnBall;
     
     NSTimeInterval _lastUpdateTime;
     NSTimeInterval _dt;
@@ -62,7 +67,6 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
         self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
         self.physicsWorld.contactDelegate = self;
         
-        [self createBorder];
         [self createPlayerPaddle];
         [self createComputerPaddle];
         [self createBall];
@@ -70,7 +74,7 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
         
         [self addChild:_worldNode];
         
-        [self runAction:[SKAction sequence:@[
+        _spawnBall = [SKAction sequence:@[
                                              [SKAction waitForDuration:1.5],
                                              [SKAction runBlock:^{
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -80,23 +84,13 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
                 _ball.physicsBody.velocity = CGVectorMake(BALL_INITIAL_SPEED,
                                                           BALL_INITIAL_SPEED);
             }
-        }]]]];
+        }]]];
+        [self runAction:_spawnBall];
     }
     return self;
 }
 
 #pragma mark - Init
-
--(void)createBorder {
-    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-    self.physicsBody.categoryBitMask = EntityCategoryBorder;
-    self.physicsBody.collisionBitMask = 0;
-    self.physicsBody.contactTestBitMask = EntityCategoryBall | EntityCategoryPaddle;
-    self.physicsBody.friction = 0.0f;
-    self.physicsBody.restitution = 1.0f;
-    self.physicsBody.dynamic = NO;
-    self.physicsBody.usesPreciseCollisionDetection = YES;
-}
 
 -(void)createSounds {
     _bounceSound = [SKAction playSoundFileNamed:@"bounce.wav" waitForCompletion:NO];
@@ -104,10 +98,19 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 }
 
 -(void)createBall {
-    _ball = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
-                                         size:CGSizeMake(11, 11)];
-    _ball.position = CGPointMake(CGRectGetMidX(self.frame),
-                                 ScalarRandomRange(PADDLE_PADDING, CGRectGetMaxY(self.frame) - PADDLE_PADDING));
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        _ball = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
+                                             size:CGSizeMake(BALL_SIZE * IPAD_MULT_FACTOR,
+                                                             BALL_SIZE * IPAD_MULT_FACTOR)];
+        _ball.position = CGPointMake(CGRectGetMidX(self.frame),
+                                     ScalarRandomRange(PADDLE_PADDING * IPAD_MULT_FACTOR, CGRectGetMaxY(self.frame) - PADDLE_PADDING * IPAD_MULT_FACTOR));
+    } else {
+        _ball = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
+                                             size:CGSizeMake(BALL_SIZE,
+                                                             BALL_SIZE)];
+        _ball.position = CGPointMake(CGRectGetMidX(self.frame),
+                                     ScalarRandomRange(PADDLE_PADDING, CGRectGetMaxY(self.frame) - PADDLE_PADDING));
+    }
     _ball.anchorPoint = CGPointMake(0.5, 0.5);
     _ball.zPosition = LayerBall;
     
@@ -125,10 +128,20 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 }
 
 -(void)createComputerPaddle {
-    _computerPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
-                                                   size:CGSizeMake(12.0f, 80.0f)];
-    _computerPaddle.position = CGPointMake(PADDLE_PADDING,
-                                           CGRectGetMidY(self.frame));
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        _computerPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
+                                                       size:CGSizeMake(PADDLE_WIDTH * IPAD_MULT_FACTOR,
+                                                                       PADDLE_HEIGHT * IPAD_MULT_FACTOR)];
+        _computerPaddle.position = CGPointMake(PADDLE_PADDING * IPAD_MULT_FACTOR,
+                                               CGRectGetMidY(self.frame));
+    } else {
+        _computerPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
+                                                       size:CGSizeMake(PADDLE_WIDTH,
+                                                                       PADDLE_HEIGHT)];
+        _computerPaddle.position = CGPointMake(PADDLE_PADDING,
+                                               CGRectGetMidY(self.frame));
+    }
+    
     _computerPaddle.anchorPoint = CGPointMake(0.5, 0.5);
     _computerPaddle.zPosition = LayerPaddle;
     
@@ -142,10 +155,18 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 }
 
 -(void)createPlayerPaddle {
-    _playerPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
-                                                 size:CGSizeMake(12.0f, 80.0f)];
-    _playerPaddle.position = CGPointMake(CGRectGetWidth(self.frame) - PADDLE_PADDING,
-                                         CGRectGetMidY(self.frame));
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        _playerPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
+                                                     size:CGSizeMake(PADDLE_WIDTH * IPAD_MULT_FACTOR,
+                                                                     PADDLE_HEIGHT * IPAD_MULT_FACTOR)];
+        _playerPaddle.position = CGPointMake(CGRectGetWidth(self.frame) - PADDLE_PADDING * IPAD_MULT_FACTOR, CGRectGetMidY(self.frame));
+    } else {
+        _playerPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
+                                                     size:CGSizeMake(PADDLE_WIDTH,
+                                                                     PADDLE_HEIGHT)];
+        _playerPaddle.position = CGPointMake(CGRectGetWidth(self.frame) - PADDLE_PADDING,
+                                             CGRectGetMidY(self.frame));
+    }
     _playerPaddle.anchorPoint = CGPointMake(0.5, 0.5);
     _playerPaddle.zPosition = LayerPaddle;
     
@@ -191,11 +212,32 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 #pragma mark - Update
 
 -(void)moveComputerPaddle {
-    if (_ball.position.x <= (CGRectGetWidth(self.frame) / 4)) {
-        [_computerPaddle runAction:[SKAction moveToY:_ball.position.y duration:COMPUTER_SPEED]];
+    if (_ball.position.x <= (CGRectGetWidth(self.frame) / 2)) {
+        
+        if (_ball.position.y > _computerPaddle.position.y) {
+            _computerPaddle.position = CGPointMake(_computerPaddle.position.x,
+                                                   _computerPaddle.position.y + _dt * COMPUTER_SPEED);
+        } else if (_ball.position.y < _computerPaddle.position.y) {
+            _computerPaddle.position = CGPointMake(_computerPaddle.position.x,
+                                                  _computerPaddle.position.y - _dt * COMPUTER_SPEED);
+        }
     }
 }
 
+- (void)checkBoundryForBall {
+    if ((_ball.position.y + _ball.size.height / 2) >= self.frame.size.height ||
+        (_ball.position.y - _ball.size.height / 2) <= 0.0f) {
+        _ball.physicsBody.velocity = CGVectorMake(_ball.physicsBody.velocity.dx,
+                                                  -_ball.physicsBody.velocity.dy);
+        [self runAction:_bongSound];
+    } else if (_ball.position.x >= (self.frame.size.width - BALL_SCORE_CHECK) ||
+               _ball.position.x <= BALL_SCORE_CHECK) {
+        [_ball runAction:[SKAction sequence:@[[SKAction fadeAlphaTo:0.0f duration:0.073],
+                                  [SKAction removeFromParent]]]];
+        [self createBall];
+        [self runAction:_spawnBall];
+    }
+}
 -(void)update:(CFTimeInterval)currentTime {
     if (_lastUpdateTime) {
         _dt = currentTime - _lastUpdateTime;
@@ -203,10 +245,9 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
         _dt = 0;
     }
     _lastUpdateTime = currentTime;
-}
-
--(void)didSimulatePhysics {
+    [self checkBoundryForBall];
     [self moveComputerPaddle];
+    NSLog(@"%f", _playerPaddle.speed);
 }
 
 #pragma mark - Collision Detection
@@ -214,14 +255,11 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 - (void)didBeginContact:(SKPhysicsContact *)contact {
     SKPhysicsBody *other = (contact.bodyA.categoryBitMask == EntityCategoryBall ? contact.bodyB : contact.bodyA);
     if (other.categoryBitMask == EntityCategoryPaddle) {
+        CGFloat difference = fabs(_ball.physicsBody.velocity.dy - other.velocity.dy);
         _ball.physicsBody.velocity = CGVectorMake(-_ball.physicsBody.velocity.dx,
-                                                  _ball.physicsBody.velocity.dy);
-        [self runAction:_bounceSound];
-        return;
-    } else if (other.categoryBitMask == EntityCategoryBorder) {
-        _ball.physicsBody.velocity = CGVectorMake(_ball.physicsBody.velocity.dx,
-                                                  -_ball.physicsBody.velocity.dy);
+                                                  _ball.physicsBody.velocity.dy + difference);
         [self runAction:_bongSound];
+        return;
     }
 }
 
