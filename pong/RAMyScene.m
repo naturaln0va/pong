@@ -260,9 +260,15 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 - (void)didBeginContact:(SKPhysicsContact *)contact {
     SKPhysicsBody *other = (contact.bodyA.categoryBitMask == EntityCategoryBall ? contact.bodyB : contact.bodyA);
     if (other.categoryBitMask == EntityCategoryPaddle) {
-        CGFloat difference = fabs(_ball.physicsBody.velocity.dy - other.velocity.dy);
-        _ball.physicsBody.velocity = CGVectorMake(-_ball.physicsBody.velocity.dx,
-                                                  _ball.physicsBody.velocity.dy + difference);
+        if (other.velocity.dy > 0.0f) {
+            CGFloat difference = fabs(_ball.physicsBody.velocity.dy - other.velocity.dy);
+            _ball.physicsBody.velocity = CGVectorMake(-_ball.physicsBody.velocity.dx,
+                                                      _ball.physicsBody.velocity.dy + difference);
+        } else {
+            _ball.physicsBody.velocity = CGVectorMake(-_ball.physicsBody.velocity.dx,
+                                                      _ball.physicsBody.velocity.dy);
+        }
+        
         [self runAction:_bongSound];
         return;
     }
