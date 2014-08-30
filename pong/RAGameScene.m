@@ -138,7 +138,7 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 }
 
 -(void)createLabels {
-    _rightScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"enhanced_dot_digital-7"];
+    _rightScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
 }
 
 -(void)createSounds {

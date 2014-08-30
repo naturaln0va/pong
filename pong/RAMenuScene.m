@@ -9,8 +9,21 @@
 #import "RAMenuScene.h"
 #import "RAGameScene.h"
 
+#define FRAME_PADDING       22.0
+#define MENU_ITEM_PADDING   54.0
+#define MENU_ITEM_SIZE      37.0
+
+NSString * const fontName = @"Enhanced Dot Digital-7";
+
 @implementation RAMenuScene {
     SKLabelNode *_mainLabel;
+    SKLabelNode *_onePlayer;
+    SKLabelNode *_twoPlayer;
+    
+    SKNode *_layerPlayersPick;
+    SKNode *_layerDifficultySelect;
+    
+    SKSpriteNode *_twitterIcon;
 }
 
 
@@ -18,13 +31,40 @@
     if (self = [super initWithSize:size]) {
         self.backgroundColor = [SKColor blackColor];
         
-        _mainLabel = [SKLabelNode labelNodeWithFontNamed:@"enhanced_dot_digital-7"];
+        _mainLabel = [SKLabelNode labelNodeWithFontNamed:fontName];
         _mainLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                          CGRectGetMidY(self.frame));
+                                          CGRectGetMidY(self.frame) + 45.0f);
         _mainLabel.fontColor = [SKColor whiteColor];
         _mainLabel.fontSize = 120.0f;
         _mainLabel.text = @"PONG";
         [self addChild:_mainLabel];
+        [_mainLabel runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction scaleBy:1.145f duration:0.231], [SKAction scaleTo:1.0f duration:0.231]]]]];
+        
+        _layerPlayersPick = [SKNode node];
+        
+        _onePlayer = [SKLabelNode labelNodeWithFontNamed:fontName];
+        _onePlayer.position = CGPointMake(CGRectGetMidX(self.frame),
+                                          CGRectGetMidY(self.frame) - (MENU_ITEM_PADDING / 2.0));
+        _onePlayer.fontColor = [SKColor whiteColor];
+        _onePlayer.fontSize = MENU_ITEM_SIZE;
+        _onePlayer.text = @"ONE PLAYER";
+        _onePlayer.name = @"playerSelect";
+        [_layerPlayersPick addChild:_onePlayer];
+        
+        _twoPlayer = [SKLabelNode labelNodeWithFontNamed:fontName];
+        _twoPlayer.position = CGPointMake(CGRectGetMidX(self.frame),
+                                          CGRectGetMidY(self.frame) - (MENU_ITEM_PADDING * 2.0));
+        _twoPlayer.fontColor = [SKColor whiteColor];
+        _twoPlayer.fontSize = MENU_ITEM_SIZE;
+        _twoPlayer.text = @"TWO PLAYER";
+        _twoPlayer.name = @"playerSelect";
+        [_layerPlayersPick addChild:_twoPlayer];
+        
+        _twitterIcon = [SKSpriteNode spriteNodeWithImageNamed:@"TwitterIcon"];
+        _twitterIcon.position = CGPointMake(CGRectGetWidth(self.frame) - (_twitterIcon.size.width / 2.0 +FRAME_PADDING), (_twitterIcon.size.height / 2.0) + FRAME_PADDING);
+        [self addChild:_twitterIcon];
+        
+        [self addChild:_layerPlayersPick];
     }
     return self;
 }
@@ -33,8 +73,20 @@
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
         
-        if (CGRectContainsPoint(_mainLabel.frame, location)) {
-            [self presentGame];
+        if (CGRectContainsPoint(_onePlayer.frame, location)) {
+            SKAction *fade = [SKAction fadeAlphaTo:0.0f duration:0.53];
+            SKAction *scaleDown = [SKAction scaleTo:0.0f duration:0.53];
+            
+            [_layerPlayersPick enumerateChildNodesWithName:@"playerSelect" usingBlock:^(SKNode *node, BOOL *stop) {
+                [node runAction:fade];
+                [node runAction:scaleDown];
+                
+                [node runAction:[SKAction sequence:@[[SKAction waitForDuration:0.6],
+                                                     [SKAction removeFromParent]]]];
+            }];
+            
+        } else if (CGRectContainsPoint(_twoPlayer.frame, location)) {
+            [self presentGame]; // pass information along
         }
     }
 }

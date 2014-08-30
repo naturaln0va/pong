@@ -26,6 +26,7 @@
 		4814D02A19AD2E5100EDD0C8 /* pongTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D02919AD2E5100EDD0C8 /* pongTests.m */; };
 		481B698819AFB0F4008F27CD /* bong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 481B698719AFB0F4008F27CD /* bong.wav */; };
 		483D5BBA19B25C2F00BA627B /* RAMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 483D5BB919B25C2F00BA627B /* RAMenuScene.m */; };
+		483D5BBC19B2621800BA627B /* enhanced_dot_digital-7.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 483D5BBB19B2621800BA627B /* enhanced_dot_digital-7.ttf */; };
 		485D4C9819AEB7BE00D9EF75 /* bounce.wav in Resources */ = {isa = PBXBuildFile; fileRef = 485D4C9719AEB7BE00D9EF75 /* bounce.wav */; };
 		485F443319B12452005998B9 /* PaddleParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 485F443119B12452005998B9 /* PaddleParticle.sks */; };
 		485F443619B1596D005998B9 /* whiteParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = 485F443519B1596D005998B9 /* whiteParticle.png */; };
@@ -69,11 +70,11 @@
 		481B698719AFB0F4008F27CD /* bong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bong.wav; sourceTree = "<group>"; };
 		483D5BB819B25C2F00BA627B /* RAMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMenuScene.h; sourceTree = "<group>"; };
 		483D5BB919B25C2F00BA627B /* RAMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMenuScene.m; sourceTree = "<group>"; };
+		483D5BBB19B2621800BA627B /* enhanced_dot_digital-7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "enhanced_dot_digital-7.ttf"; sourceTree = "<group>"; };
 		485D4C9719AEB7BE00D9EF75 /* bounce.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bounce.wav; sourceTree = "<group>"; };
 		485F443119B12452005998B9 /* PaddleParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PaddleParticle.sks; sourceTree = "<group>"; };
 		485F443519B1596D005998B9 /* whiteParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteParticle.png; sourceTree = "<group>"; };
 		485F443719B16364005998B9 /* BallTrail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BallTrail.sks; sourceTree = "<group>"; };
-		485F443B19B18BB0005998B9 /* enhanced_dot_digital-7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "enhanced_dot_digital-7.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,7 +192,7 @@
 		4814D03419AD2E9600EDD0C8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				485F443B19B18BB0005998B9 /* enhanced_dot_digital-7.ttf */,
+				483D5BBB19B2621800BA627B /* enhanced_dot_digital-7.ttf */,
 				485F443519B1596D005998B9 /* whiteParticle.png */,
 				481B698719AFB0F4008F27CD /* bong.wav */,
 				485D4C9719AEB7BE00D9EF75 /* bounce.wav */,
@@ -280,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				485F443319B12452005998B9 /* PaddleParticle.sks in Resources */,
+				483D5BBC19B2621800BA627B /* enhanced_dot_digital-7.ttf in Resources */,
 				481B698819AFB0F4008F27CD /* bong.wav in Resources */,
 				4814D01719AD2E5100EDD0C8 /* Images.xcassets in Resources */,
 				4814D00D19AD2E5100EDD0C8 /* Main_iPad.storyboard in Resources */,
