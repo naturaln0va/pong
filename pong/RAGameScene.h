@@ -8,6 +8,6 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface RAMyScene : SKScene
+@interface RAGameScene : SKScene
 
 @end

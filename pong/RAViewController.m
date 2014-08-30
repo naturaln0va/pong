@@ -7,11 +7,11 @@
 //
 
 #import "RAViewController.h"
-#import "RAMyScene.h"
+#import "RAGameScene.h"
 
 @implementation RAViewController {
     SKView *_skView;
-    RAMyScene *_scene;
+    RAGameScene *_scene;
 }
 
 - (void)viewWillLayoutSubviews
@@ -22,7 +22,7 @@
         _skView =
         [[SKView alloc] initWithFrame:self.view.bounds];
         
-        _scene = [RAMyScene sceneWithSize:_skView.bounds.size];
+        _scene = [RAGameScene sceneWithSize:_skView.bounds.size];
         _scene.scaleMode = SKSceneScaleModeAspectFill;
         
         [_skView presentScene:_scene];
