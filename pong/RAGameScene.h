@@ -10,6 +10,6 @@
 
 @interface RAGameScene : SKScene
 
-- (instancetype)initWithSize:(CGSize)size withAIEnabled:(BOOL)aiEnabled;
+- (instancetype)initWithSize:(CGSize)size withDifficulty:(int)difficulty;
 
 @end

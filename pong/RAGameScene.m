@@ -83,16 +83,19 @@ static inline BOOL isPositive(CGFloat num) {
 #pragma mark - Init
 
 -(id)initWithSize:(CGSize)size {    
-    return [self initWithSize:size withAIEnabled:NO];
+    return [self initWithSize:size withDifficulty:0];
 }
 
--(instancetype)initWithSize:(CGSize)size withAIEnabled:(BOOL)aiEnabled {
+-(instancetype)initWithSize:(CGSize)size withDifficulty:(int)difficulty {
     if (self = [super initWithSize:size]) {
         self.backgroundColor = [SKColor blackColor];
         _worldNode = [SKNode node];
         
-        // TESTING
-        _isTwoPlayer = false;
+        if (difficulty == 0) {
+            _isTwoPlayer = true;
+        } else {
+            _isTwoPlayer = false;
+        }
         
         self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
         self.physicsWorld.contactDelegate = self;
