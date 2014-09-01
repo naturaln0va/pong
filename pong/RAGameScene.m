@@ -7,6 +7,7 @@
 //
 
 #import "RAGameScene.h"
+#import "RAMenuScene.h"
 
 typedef NS_ENUM(int, Layer) {
     LayerBackground,
@@ -24,14 +25,17 @@ typedef NS_OPTIONS(int, EntityCategory) {
 #define IPAD_MULT_FACTOR    2.0
 #define IPAD_BALL_SPEED     385.0
 
+#define MIDDLE_PADDING      55.0
+#define TOP_FRAME_PADDING   47.0
 #define PADDLE_PADDING      45.0
 #define PADDLE_WIDTH        12.0
 #define PADDLE_HEIGHT       80.0
 #define ARC4RANDOM_MAX      0x100000000
 #define PADDLE_ACCEL        1.25
 #define PADDLE_DEACCEL      2.85232
-#define COMPUTER_ACCEL      423.0
-#define COMPUTER_DEACCEL    389.0
+#define LOGIC_ANGLE_FACTOR  0.56
+#define COMPUTER_ACCEL      700.0
+#define COMPUTER_DEACCEL    700.0
 
 #define BALL_INITIAL_SPEED  189.0
 #define BALL_SPEED          150.0
@@ -40,6 +44,10 @@ typedef NS_OPTIONS(int, EntityCategory) {
 
 static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
     return floorf(((double)arc4random() / ARC4RANDOM_MAX) * (max - min) + min);
+}
+
+static inline BOOL isPositive(CGFloat num) {
+    return num > 0;
 }
 
 @interface RAGameScene() <SKPhysicsContactDelegate>
@@ -72,7 +80,13 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
     int _rightScore;
 }
 
+#pragma mark - Init
+
 -(id)initWithSize:(CGSize)size {    
+    return [self initWithSize:size withAIEnabled:NO];
+}
+
+-(instancetype)initWithSize:(CGSize)size withAIEnabled:(BOOL)aiEnabled {
     if (self = [super initWithSize:size]) {
         self.backgroundColor = [SKColor blackColor];
         _worldNode = [SKNode node];
@@ -89,26 +103,16 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
         [self createBall];
         [self createCenterLine];
         [self createSounds];
+        [self createActions];
+        
+        [self resetScores];
         
         [self addChild:_worldNode];
         
-        _spawnBall = [SKAction sequence:@[
-                                             [SKAction waitForDuration:1.5],
-                                             [SKAction runBlock:^{
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                _ball.physicsBody.velocity = CGVectorMake(IPAD_BALL_SPEED,
-                                                          IPAD_BALL_SPEED);
-            } else {
-                _ball.physicsBody.velocity = CGVectorMake(BALL_INITIAL_SPEED,
-                                                          BALL_INITIAL_SPEED);
-            }
-        }]]];
         [self runAction:_spawnBall];
     }
     return self;
 }
-
-#pragma mark - Init
 
 -(void)addParticleToNode:(SKNode *)node withName:(NSString *)name {
     SKEmitterNode *engine = [NSKeyedUnarchiver
@@ -122,9 +126,22 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
                                           [SKAction removeFromParent]]]];*/
 }
 
+-(void)createActions {
+    _spawnBall = [SKAction sequence:@[
+                                      [SKAction waitForDuration:1.5],
+                                      [SKAction runBlock:^{
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            _ball.physicsBody.velocity = CGVectorMake(IPAD_BALL_SPEED,
+                                                      IPAD_BALL_SPEED);
+        } else {
+            _ball.physicsBody.velocity = CGVectorMake(BALL_INITIAL_SPEED,
+                                                      BALL_INITIAL_SPEED);
+        }
+    }]]];
+}
+
 -(void)createCenterLine {
-    //middle line
-    CGFloat middleLineWidth = 4.0;
+    CGFloat middleLineWidth = 3.0;
     CGFloat middleLineHeight = 20.0;
     NSInteger numberOfLines = self.frame.size.height / (2*middleLineHeight);
     CGPoint linePosition = CGPointMake(self.frame.size.width / 2.0, middleLineHeight * 1.5);
@@ -139,6 +156,19 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 
 -(void)createLabels {
     _rightScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
+    _rightScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame)+ _rightScoreLabel.frame.size.height / 2.0 + MIDDLE_PADDING, CGRectGetMaxY(self.frame) + _rightScoreLabel.frame.size.height / 2.0 - TOP_FRAME_PADDING);
+    _rightScoreLabel.fontColor = [SKColor whiteColor];
+    _rightScoreLabel.fontSize = 37.0f;
+    _rightScoreLabel.text = @"0";
+    [_worldNode addChild:_rightScoreLabel];
+    
+    _leftScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
+    _leftScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame)+ _leftScoreLabel.frame.size.height / 2.0 - MIDDLE_PADDING, CGRectGetMaxY(self.frame) + _leftScoreLabel.frame.size.height / 2.0 - TOP_FRAME_PADDING);
+    _leftScoreLabel.fontColor = [SKColor whiteColor];
+    _leftScoreLabel.fontSize = 37.0f;
+    _leftScoreLabel.text = @"0";
+    [_worldNode addChild:_leftScoreLabel];
+    
 }
 
 -(void)createSounds {
@@ -201,6 +231,7 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
     _rightPaddle.physicsBody.collisionBitMask = 0;
     _rightPaddle.physicsBody.contactTestBitMask = EntityCategoryBall;
     _rightPaddle.physicsBody.usesPreciseCollisionDetection = YES;
+    _rightPaddle.physicsBody.mass = 1.0f;
     
     [_worldNode addChild:_rightPaddle];
 }
@@ -269,12 +300,49 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
     for (UITouch *touch in touches) {
         if (touch == _leftTouch) {
             _leftTouch = nil;
-            [self easeLeftToStop];
         }
         else if (touch == _rightTouch) {
             _rightTouch = nil;
         }
     }
+}
+
+#pragma mark - Helper
+
+-(void)resetScores {
+    _rightScore = 0;
+    _leftScore = 0;
+}
+
+-(void)checkScores {
+    if (_rightScore % 3 == 1 || _leftScore % 3 == 1) {
+        [self changeGameColors];
+    }
+}
+
+-(void)changeGameColors {
+    CGFloat red = ScalarRandomRange(0, 255);
+    CGFloat green = ScalarRandomRange(0, 255);
+    CGFloat blue = ScalarRandomRange(0, 255);
+    
+    SKColor *paddleColor = [SKColor colorWithRed:red / 255.0f
+                                          green:green / 255.0f
+                                           blue:blue / 255.0f
+                                          alpha:1.0f];
+    SKColor *backgroundColor = [SKColor colorWithRed:(red / 255.0f) / 0.2f
+                                               green:(green / 255.0f) / 0.2f
+                                                blue:(blue / 255.0f) / 0.2f
+                                               alpha:1.0f];
+    
+    [_leftPaddle runAction:[SKAction colorizeWithColor:paddleColor
+                                      colorBlendFactor:1.0f
+                                              duration:0.23]];
+    [_rightPaddle runAction:[SKAction colorizeWithColor:paddleColor
+                                       colorBlendFactor:1.0f
+                                               duration:0.23]];
+    [_ball runAction:[SKAction colorizeWithColor:backgroundColor
+                                colorBlendFactor:1.0f
+                                        duration:0.23]];
 }
 
 #pragma mark - Update
@@ -303,27 +371,19 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
     _leftPaddle.position = CGPointMake(xPos, yPos);
 }
 
--(void)easeLeftToStop {
-    if (_leftPaddle.physicsBody.velocity.dy > 0.0f) {
-        _leftPaddle.physicsBody.velocity = CGVectorMake(_leftPaddle.physicsBody.velocity.dx,
-                                                        _leftPaddle.physicsBody.velocity.dy - (_dt * PADDLE_DEACCEL));
-    } else if (_leftPaddle.physicsBody.velocity.dy < 0.0f) {
-        _leftPaddle.physicsBody.velocity = CGVectorMake(_leftPaddle.physicsBody.velocity.dx,
-                                                        _leftPaddle.physicsBody.velocity.dy + (_dt * PADDLE_DEACCEL));
-    }
-}
-
 -(void)moveRightPaddle {
     
 }
 
 -(void)moveComputerPaddle {
-    if (_ball.position.x <= (CGRectGetWidth(self.frame) * 0.4)) {
+    if (_ball.position.x <= (CGRectGetWidth(self.frame) * LOGIC_ANGLE_FACTOR)) {
         
         if (_ball.position.y > _rightPaddle.position.y) {
             _rightPaddle.physicsBody.velocity = CGVectorMake(_rightPaddle.physicsBody.velocity.dx, _rightPaddle.physicsBody.velocity.dy + _dt * COMPUTER_ACCEL);
+            NSLog(@"Above!");
         } else if (_ball.position.y < _rightPaddle.position.y) {
             _rightPaddle.physicsBody.velocity = CGVectorMake(_rightPaddle.physicsBody.velocity.dx, _rightPaddle.physicsBody.velocity.dy - _dt * COMPUTER_ACCEL);
+            NSLog(@"Below!");
         }
     } else {
         if (_rightPaddle.physicsBody.velocity.dy > 0.0f) {
@@ -347,19 +407,30 @@ static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
 }
 
 - (void)checkBoundryForBall {
-    if ((_ball.position.y + _ball.size.height / 2) >= self.frame.size.height ||
-        (_ball.position.y - _ball.size.height / 2) <= 0.0f) {
+    if (round(round(_ball.position.y) + _ball.size.height / 2) > self.frame.size.height ||
+        round(round(_ball.position.y) - _ball.size.height / 2) < 0.0f) {
         _ball.physicsBody.velocity = CGVectorMake(_ball.physicsBody.velocity.dx,
                                                   -_ball.physicsBody.velocity.dy);
         [self runAction:_bongSound];
     } else if (_ball.position.x >= (self.frame.size.width - BALL_SCORE_CHECK) ||
                _ball.position.x <= BALL_SCORE_CHECK) {
-        [_ball runAction:[SKAction sequence:@[[SKAction fadeAlphaTo:0.0f duration:0.023],
+        [_ball runAction:[SKAction sequence:@[[SKAction fadeAlphaTo:0.0f duration:0.23],
                                   [SKAction removeFromParent]]]];
+        if (isPositive(_ball.physicsBody.velocity.dx)) {
+            // Left Scored
+            _leftScore++;
+            _leftScoreLabel.text = [NSString stringWithFormat:@"%d", _leftScore];
+        } else {
+            // Right Scored
+            _rightScore++;
+            _rightScoreLabel.text = [NSString stringWithFormat:@"%d", _rightScore];
+        }
+        [self changeGameColors];
         [self createBall];
         [self runAction:_spawnBall];
     }
 }
+
 -(void)update:(CFTimeInterval)currentTime {
     if (_lastUpdateTime) {
         _dt = currentTime - _lastUpdateTime;

@@ -9,11 +9,11 @@
 #import "RAMenuScene.h"
 #import "RAGameScene.h"
 
-#define FRAME_PADDING       22.0
+#define FRAME_PADDING       12.0
 #define MENU_ITEM_PADDING   54.0
 #define MENU_ITEM_SIZE      37.0
 
-NSString * const fontName = @"Enhanced Dot Digital-7";
+NSString *const twitterURL = @"https://twitter.com/naturaln0va";
 
 @implementation RAMenuScene {
     SKLabelNode *_mainLabel;
@@ -31,7 +31,7 @@ NSString * const fontName = @"Enhanced Dot Digital-7";
     if (self = [super initWithSize:size]) {
         self.backgroundColor = [SKColor blackColor];
         
-        _mainLabel = [SKLabelNode labelNodeWithFontNamed:fontName];
+        _mainLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
         _mainLabel.position = CGPointMake(CGRectGetMidX(self.frame),
                                           CGRectGetMidY(self.frame) + 45.0f);
         _mainLabel.fontColor = [SKColor whiteColor];
@@ -42,7 +42,7 @@ NSString * const fontName = @"Enhanced Dot Digital-7";
         
         _layerPlayersPick = [SKNode node];
         
-        _onePlayer = [SKLabelNode labelNodeWithFontNamed:fontName];
+        _onePlayer = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
         _onePlayer.position = CGPointMake(CGRectGetMidX(self.frame),
                                           CGRectGetMidY(self.frame) - (MENU_ITEM_PADDING / 2.0));
         _onePlayer.fontColor = [SKColor whiteColor];
@@ -51,7 +51,7 @@ NSString * const fontName = @"Enhanced Dot Digital-7";
         _onePlayer.name = @"playerSelect";
         [_layerPlayersPick addChild:_onePlayer];
         
-        _twoPlayer = [SKLabelNode labelNodeWithFontNamed:fontName];
+        _twoPlayer = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
         _twoPlayer.position = CGPointMake(CGRectGetMidX(self.frame),
                                           CGRectGetMidY(self.frame) - (MENU_ITEM_PADDING * 2.0));
         _twoPlayer.fontColor = [SKColor whiteColor];
@@ -61,7 +61,8 @@ NSString * const fontName = @"Enhanced Dot Digital-7";
         [_layerPlayersPick addChild:_twoPlayer];
         
         _twitterIcon = [SKSpriteNode spriteNodeWithImageNamed:@"TwitterIcon"];
-        _twitterIcon.position = CGPointMake(CGRectGetWidth(self.frame) - (_twitterIcon.size.width / 2.0 +FRAME_PADDING), (_twitterIcon.size.height / 2.0) + FRAME_PADDING);
+        [_twitterIcon runAction:[SKAction scaleXBy:0.75f y:0.75f duration:0.0001]];
+        _twitterIcon.position = CGPointMake(CGRectGetWidth(self.frame) - (_twitterIcon.size.width / 2.0 + FRAME_PADDING), (_twitterIcon.size.height / 2.0) + FRAME_PADDING);
         [self addChild:_twitterIcon];
         
         [self addChild:_layerPlayersPick];
@@ -87,6 +88,8 @@ NSString * const fontName = @"Enhanced Dot Digital-7";
             
         } else if (CGRectContainsPoint(_twoPlayer.frame, location)) {
             [self presentGame]; // pass information along
+        } else if (CGRectContainsPoint(_twitterIcon.frame, location)) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:twitterURL]];
         }
     }
 }

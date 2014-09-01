@@ -138,11 +138,8 @@
 			children = (
 				4814D03419AD2E9600EDD0C8 /* Resources */,
 				4814D03319AD2E7F00EDD0C8 /* Interfaces */,
+				4873D06A19B3D1E5009AD55F /* Scenes */,
 				4814CFFD19AD2E5100EDD0C8 /* Supporting Files */,
-				4814D01119AD2E5100EDD0C8 /* RAGameScene.h */,
-				4814D01219AD2E5100EDD0C8 /* RAGameScene.m */,
-				483D5BB819B25C2F00BA627B /* RAMenuScene.h */,
-				483D5BB919B25C2F00BA627B /* RAMenuScene.m */,
 			);
 			path = pong;
 			sourceTree = "<group>";
@@ -192,15 +189,50 @@
 		4814D03419AD2E9600EDD0C8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				483D5BBB19B2621800BA627B /* enhanced_dot_digital-7.ttf */,
-				485F443519B1596D005998B9 /* whiteParticle.png */,
-				481B698719AFB0F4008F27CD /* bong.wav */,
-				485D4C9719AEB7BE00D9EF75 /* bounce.wav */,
+				4873D06D19B3D23E009AD55F /* Fonts */,
+				4873D06C19B3D22F009AD55F /* Audio */,
+				4873D06B19B3D21E009AD55F /* Effects */,
 				4814D01619AD2E5100EDD0C8 /* Images.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		4873D06A19B3D1E5009AD55F /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				4814D01119AD2E5100EDD0C8 /* RAGameScene.h */,
+				4814D01219AD2E5100EDD0C8 /* RAGameScene.m */,
+				483D5BB819B25C2F00BA627B /* RAMenuScene.h */,
+				483D5BB919B25C2F00BA627B /* RAMenuScene.m */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		4873D06B19B3D21E009AD55F /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				485F443519B1596D005998B9 /* whiteParticle.png */,
 				485F443119B12452005998B9 /* PaddleParticle.sks */,
 				485F443719B16364005998B9 /* BallTrail.sks */,
 			);
-			name = Resources;
+			name = Effects;
+			sourceTree = "<group>";
+		};
+		4873D06C19B3D22F009AD55F /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				481B698719AFB0F4008F27CD /* bong.wav */,
+				485D4C9719AEB7BE00D9EF75 /* bounce.wav */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		4873D06D19B3D23E009AD55F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				483D5BBB19B2621800BA627B /* enhanced_dot_digital-7.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
