@@ -429,6 +429,10 @@ static inline BOOL isPositive(CGFloat num) {
         }], [SKAction waitForDuration:0.25]]]]];
     }
     [_ball removeFromParent];
+    [self runAction:[SKAction sequence:@[[SKAction waitForDuration:2.5],
+                                         [SKAction runBlock:^{
+        [self returnToMenu];
+    }]]]];
 }
 
 -(void)leftWins {
