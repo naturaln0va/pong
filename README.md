@@ -7,4 +7,4 @@ Feel free to leave any suggestions :)
 
 If you aren't familiar with Treehouse, head to their website and check them out!
 
-http://https://teamtreehouse.com
+https://teamtreehouse.com
