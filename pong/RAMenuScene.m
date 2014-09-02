@@ -31,6 +31,7 @@ NSString *const twitterURL = @"https://twitter.com/naturaln0va";
     SKAction *_fadeOut;
     SKAction *_scaleDown;
     SKAction *_scaleUp;
+    SKAction *_bleepSound;
     
     SKNode *_layerPlayersPick;
     SKNode *_layerDifficultySelect;
@@ -131,9 +132,9 @@ NSString *const twitterURL = @"https://twitter.com/naturaln0va";
     [_layerDifficultySelect addChild:_hardLabel];
     
     [_layerDifficultySelect enumerateChildNodesWithName:@"difficultySelect" usingBlock:^(SKNode *node, BOOL *stop) {
-        [node runAction:[SKAction sequence:@[_scaleUp,
-                                             _fadeIn,
-                                             [SKAction waitForDuration:0.53]]]];
+        [node runAction:_scaleUp];
+        [node runAction:_fadeIn];
+        [node runAction:[SKAction waitForDuration:0.53]];
     }];
     [self runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],
                                          [SKAction runBlock:^{
@@ -153,21 +154,26 @@ NSString *const twitterURL = @"https://twitter.com/naturaln0va";
                 [node runAction:_fadeOut];
             }];
             
-            [self runAction:[SKAction sequence:@[[SKAction waitForDuration:0.23],
+            [self runAction:[SKAction sequence:@[[SKAction waitForDuration:0.03],
                                                  [SKAction runBlock:^{
                 [self showDifficultySelect];
             }]]]];
-            
+            [self runAction:_bleepSound];
         } else if (CGRectContainsPoint(_twoPlayer.frame, location)) {
             [self presentGamewithGameOption:@"twoplayer"];
+            [self runAction:_bleepSound];
         } else if (CGRectContainsPoint(_twitterIcon.frame, location)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:twitterURL]];
+            [self runAction:_bleepSound];
         } else if (CGRectContainsPoint(_easyLabel.frame, location)) {
             [self presentGamewithGameOption:@"easy"];
+            [self runAction:_bleepSound];
         } else if (CGRectContainsPoint(_normalLabel.frame, location)) {
             [self presentGamewithGameOption:@"normal"];
+            [self runAction:_bleepSound];
         } else if (CGRectContainsPoint(_hardLabel.frame, location)) {
             [self presentGamewithGameOption:@"hard"];
+            [self runAction:_bleepSound];
         }
     }
 }
@@ -179,6 +185,7 @@ NSString *const twitterURL = @"https://twitter.com/naturaln0va";
     _fadeOut = [SKAction fadeAlphaTo:0.0f duration:ACTION_DURATION];
     _scaleUp = [SKAction scaleTo:1.0f duration:ACTION_DURATION];
     _scaleDown = [SKAction scaleTo:0.0f duration:ACTION_DURATION];
+    _bleepSound = [SKAction playSoundFileNamed:@"blip.wav" waitForCompletion:NO];
 }
 
 #pragma mark - Presentation
