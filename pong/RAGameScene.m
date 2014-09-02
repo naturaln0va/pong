@@ -67,6 +67,7 @@ static inline BOOL isPositive(CGFloat num) {
     SKSpriteNode *_leftPaddle;
     SKSpriteNode *_rightPaddle;
     SKSpriteNode *_ball;
+    SKSpriteNode *_menuButton;
     
     SKAction *_bounceSound;
     SKAction *_bongSound;
@@ -117,6 +118,7 @@ static inline BOOL isPositive(CGFloat num) {
         self.physicsWorld.contactDelegate = self;
         
         [self createLabels];
+        [self createButton];
         [self createLeftPaddle];
         [self createRightPaddle];
         [self createBall];
@@ -170,6 +172,16 @@ static inline BOOL isPositive(CGFloat num) {
     }
 }
 
+-(void)createButton {
+    _menuButton = [SKSpriteNode spriteNodeWithImageNamed:@"menuButton"];
+    _menuButton.position = CGPointMake(CGRectGetMidX(self.frame),
+                                       CGRectGetHeight(self.frame) - (_menuButton.size.height / 2.0 + TOP_FRAME_PADDING) + 24);
+    _menuButton.anchorPoint = CGPointMake(0.5, 0.5);
+    _menuButton.xScale = 1.5f;
+    _menuButton.yScale = 1.5f;
+    [_worldNode addChild:_menuButton];
+}
+
 -(void)createLabels {
     _rightScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
     _rightScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame)+ _rightScoreLabel.frame.size.height / 2.0 + MIDDLE_PADDING, CGRectGetMaxY(self.frame) + _rightScoreLabel.frame.size.height / 2.0 - TOP_FRAME_PADDING);
@@ -189,7 +201,7 @@ static inline BOOL isPositive(CGFloat num) {
     _winningLabel.position = CGPointMake(CGRectGetMidX(self.frame),
                                          CGRectGetMidY(self.frame) - 35.0f);
     _winningLabel.fontColor = [SKColor whiteColor];
-    _winningLabel.fontSize = 93.0f;
+    _winningLabel.fontSize = 87.0f;
     _winningLabel.text = @"YOU WIN!!!";
     _winningLabel.zPosition = 100.0f;
 }
@@ -292,6 +304,10 @@ static inline BOOL isPositive(CGFloat num) {
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
+        
+        if (CGRectContainsPoint(_menuButton.frame, location)) {
+            [self returnToMenu];
+        }
         
         if(_isTwoPlayer) {
             if (_leftTouch == nil) {
@@ -436,14 +452,6 @@ static inline BOOL isPositive(CGFloat num) {
         _winningLabel.text = @"YOU LOOSE!!!";
         [_worldNode addChild:_winningLabel];
         [_winningLabel runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction scaleBy:1.145f duration:0.231], [SKAction scaleTo:1.0f duration:0.231]]]]];
-        [_winningLabel runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction runBlock:^{
-            [self addParticleAtLocation:CGPointMake(ScalarRandomRange(CGRectGetMinX(self.frame),CGRectGetMaxX(self.frame)), ScalarRandomRange(CGRectGetMinY(self.frame),CGRectGetMaxY(self.frame))) withName:@"WinningConfetti"];
-            if (arc4random() % 5) {
-                [self runAction:_fireWorkSound1];
-            } else {
-                [self runAction:_fireWorkSound2];
-            }
-        }], [SKAction waitForDuration:0.25]]]]];
     }
     [_ball removeFromParent];
     [self runAction:[SKAction sequence:@[[SKAction waitForDuration:2.5],
@@ -474,6 +482,11 @@ static inline BOOL isPositive(CGFloat num) {
     [_rightPaddle runAction:[SKAction colorizeWithColor:color
                                        colorBlendFactor:1.0f
                                                duration:0.23]];
+    
+    [_menuButton runAction:[SKAction colorizeWithColor:color
+                                      colorBlendFactor:1.0f
+                                              duration:0.23]];
+    
     _leftScoreLabel.fontColor = color;
     _rightScoreLabel.fontColor = color;
     
@@ -593,6 +606,16 @@ static inline BOOL isPositive(CGFloat num) {
     }
 }
 
+-(void)keepBallInside {
+    if (_ball.position.y > self.frame.size.height) {
+        _ball.position = CGPointMake(_ball.position.x,
+                                     self.frame.size.height - 1);
+    } else if (_ball.position.y < 0.0) {
+        _ball.position = CGPointMake(_ball.position.x,
+                                     1.0);
+    }
+}
+
 -(void)update:(CFTimeInterval)currentTime {
     if (_lastUpdateTime) {
         _dt = currentTime - _lastUpdateTime;
@@ -600,6 +623,7 @@ static inline BOOL isPositive(CGFloat num) {
         _dt = 0;
     }
     _lastUpdateTime = currentTime;
+    [self keepBallInside];
     
     if (!_isTwoPlayer) [self moveComputerPaddle];
 }
