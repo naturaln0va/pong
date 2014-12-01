@@ -8,6 +8,8 @@
 
 #import "RAGameScene.h"
 #import "RAMenuScene.h"
+#import "RAScoreUploadScene.h"
+#import "RARankedScore.h"
 
 typedef NS_ENUM(int, Layer) {
     LayerBackground,
@@ -19,33 +21,48 @@ typedef NS_ENUM(int, Layer) {
 
 typedef NS_OPTIONS(int, EntityCategory) {
     EntityCategoryPaddle = 1 << 0,
-    EntityCategoryBall = 1 << 1
+    EntityCategoryBall = 1 << 1,
+    EntityCategoryRankedPaddle = 1 << 2
 };
 
 #define IPAD_MULT_FACTOR    2.0
 #define IPAD_BALL_SPEED     385.0
 
-#define MIDDLE_PADDING      55.0
+#define MIDDLE_PADDING      64.0
 #define TOP_FRAME_PADDING   47.0
-#define PADDLE_PADDING      45.0
-#define PADDLE_WIDTH        12.0
-#define PADDLE_HEIGHT       80.0
+#define PADDLE_PADDING      42.0
+#define PADDLE_WIDTH        10.0
+#define PADDLE_HEIGHT       74.0
 #define ARC4RANDOM_MAX      0x100000000
 #define PADDLE_ACCEL        1.25
 #define PADDLE_DEACCEL      2.85232
 #define LOGIC_ANGLE_FACTOR  0.56
 
+#define PADDLE_WIDTH_3X     14.0
+#define PADDLE_HEIGHT_3X    86.0
+
 #define COM_ACCEL_EASY      130.0
-#define COM_ACCEL_NORM      200.0
-#define COM_ACCEL_HARD      210.0
-#define COM_ANGLE_EASY      0.3
-#define COM_ANGLE_NORM      0.55
-#define COM_ANGLE_HARD      0.9
+#define COM_ACCEL_NORM      178.0
+#define COM_ACCEL_HARD      198.0
+#define COM_ACCEL_RANK      202.0
+#define COM_ANGLE_EASY      0.412
+#define COM_ANGLE_NORM      0.58
+#define COM_ANGLE_HARD      0.78
+#define COM_ANGLE_RANK      0.9
+
+#define PAD_COM_ACCEL_EASY  235.0
+#define PAD_COM_ACCEL_NORM  278.0
+#define PAD_COM_ACCEL_HARD  311.0
+#define PAD_COM_ACCEL_RANK  380.0
+#define PAD_COM_ANGLE_EASY  0.3
+#define PAD_COM_ANGLE_NORM  0.55
+#define PAD_COM_ANGLE_HARD  0.78
+#define PAD_COM_ANGLE_RANK  0.9
 
 #define BALL_INITIAL_SPEED  189.0
 #define BALL_SPEED          150.0
 #define BALL_SIZE           11.0
-#define BALL_SCORE_CHECK    47.0
+#define BALL_SCORE_CHECK    27.0
 
 static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max){
     return floorf(((double)arc4random() / ARC4RANDOM_MAX) * (max - min) + min);
@@ -92,6 +109,7 @@ static inline BOOL isPositive(CGFloat num) {
     
     BOOL _canSwtichY;
     BOOL _isTwoPlayer;
+    BOOL _isRanked;
     int _leftScore;
     int _rightScore;
 }
@@ -109,9 +127,11 @@ static inline BOOL isPositive(CGFloat num) {
         _canSwtichY = true;
         
         if (difficulty == 0) {
-            _isTwoPlayer = true;
+            _isTwoPlayer = YES;
+        } else if (difficulty == 4) {
+            _isRanked = YES;
         } else {
-            _isTwoPlayer = false;
+            _isTwoPlayer = NO;
         }
         
         self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
@@ -183,19 +203,21 @@ static inline BOOL isPositive(CGFloat num) {
 }
 
 -(void)createLabels {
+    if (!_isRanked) {
+        _leftScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
+        _leftScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame)+ _leftScoreLabel.frame.size.height / 2.0 - MIDDLE_PADDING, CGRectGetMaxY(self.frame) + _leftScoreLabel.frame.size.height / 2.0 - TOP_FRAME_PADDING);
+        _leftScoreLabel.fontColor = [SKColor whiteColor];
+        _leftScoreLabel.fontSize = 37.0f;
+        _leftScoreLabel.text = @"0";
+        [_worldNode addChild:_leftScoreLabel];
+    }
+    
     _rightScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
     _rightScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame)+ _rightScoreLabel.frame.size.height / 2.0 + MIDDLE_PADDING, CGRectGetMaxY(self.frame) + _rightScoreLabel.frame.size.height / 2.0 - TOP_FRAME_PADDING);
     _rightScoreLabel.fontColor = [SKColor whiteColor];
     _rightScoreLabel.fontSize = 37.0f;
     _rightScoreLabel.text = @"0";
     [_worldNode addChild:_rightScoreLabel];
-    
-    _leftScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
-    _leftScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame)+ _leftScoreLabel.frame.size.height / 2.0 - MIDDLE_PADDING, CGRectGetMaxY(self.frame) + _leftScoreLabel.frame.size.height / 2.0 - TOP_FRAME_PADDING);
-    _leftScoreLabel.fontColor = [SKColor whiteColor];
-    _leftScoreLabel.fontSize = 37.0f;
-    _leftScoreLabel.text = @"0";
-    [_worldNode addChild:_leftScoreLabel];
     
     _winningLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
     _winningLabel.position = CGPointMake(CGRectGetMidX(self.frame),
@@ -253,6 +275,12 @@ static inline BOOL isPositive(CGFloat num) {
                                                                        PADDLE_HEIGHT * IPAD_MULT_FACTOR)];
         _rightPaddle.position = CGPointMake(PADDLE_PADDING * IPAD_MULT_FACTOR,
                                                CGRectGetMidY(self.frame));
+    } else if([self isLargePhone]) {
+        _rightPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
+                                                    size:CGSizeMake(PADDLE_WIDTH_3X,
+                                                                    PADDLE_HEIGHT_3X)];
+        _rightPaddle.position = CGPointMake(PADDLE_PADDING,
+                                            CGRectGetMidY(self.frame));
     } else {
         _rightPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
                                                        size:CGSizeMake(PADDLE_WIDTH,
@@ -271,6 +299,8 @@ static inline BOOL isPositive(CGFloat num) {
     _rightPaddle.physicsBody.usesPreciseCollisionDetection = YES;
     _rightPaddle.physicsBody.linearDamping = 5.0f;
     
+    [_rightPaddle removeFromParent];
+    
     [_worldNode addChild:_rightPaddle];
 }
 
@@ -280,6 +310,12 @@ static inline BOOL isPositive(CGFloat num) {
                                                      size:CGSizeMake(PADDLE_WIDTH * IPAD_MULT_FACTOR,
                                                                      PADDLE_HEIGHT * IPAD_MULT_FACTOR)];
         _leftPaddle.position = CGPointMake(CGRectGetWidth(self.frame) - PADDLE_PADDING * IPAD_MULT_FACTOR, CGRectGetMidY(self.frame));
+    } else if([self isLargePhone]) {
+        _leftPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
+                                                    size:CGSizeMake(PADDLE_WIDTH_3X,
+                                                                    PADDLE_HEIGHT_3X)];
+        _leftPaddle.position = CGPointMake(CGRectGetWidth(self.frame) - PADDLE_PADDING,
+                                           CGRectGetMidY(self.frame));
     } else {
         _leftPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
                                                      size:CGSizeMake(PADDLE_WIDTH,
@@ -291,7 +327,7 @@ static inline BOOL isPositive(CGFloat num) {
     _leftPaddle.zPosition = LayerPaddle;
     
     _leftPaddle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_leftPaddle.size];
-    _leftPaddle.physicsBody.categoryBitMask = EntityCategoryPaddle;
+    _leftPaddle.physicsBody.categoryBitMask = EntityCategoryRankedPaddle;
     _leftPaddle.physicsBody.collisionBitMask = 0;
     _leftPaddle.physicsBody.contactTestBitMask = EntityCategoryBall;;
     _leftPaddle.physicsBody.usesPreciseCollisionDetection = YES;
@@ -372,20 +408,44 @@ static inline BOOL isPositive(CGFloat num) {
 }
 
 -(void)setIntelegenceLevel:(int)level {
-    if (level == 0 || _isTwoPlayer) {
-        return;
-    } else if (level == 1) {
-        // easy
-        _computerSpeed = COM_ACCEL_EASY;
-        _computerAngle = COM_ANGLE_EASY;
-    } else if (level == 2) {
-        // normal
-        _computerSpeed = COM_ACCEL_NORM;
-        _computerAngle = COM_ANGLE_NORM;
-    } else if (level == 3) {
-        // hard
-        _computerSpeed = COM_ACCEL_HARD;
-        _computerAngle = COM_ANGLE_HARD;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (level == 0 || _isTwoPlayer) {
+            return;
+        } else if (level == 1) {
+            // easy
+            _computerSpeed = PAD_COM_ACCEL_EASY;
+            _computerAngle = PAD_COM_ANGLE_EASY;
+        } else if (level == 2) {
+            // normal
+            _computerSpeed = PAD_COM_ACCEL_NORM;
+            _computerAngle = PAD_COM_ANGLE_NORM;
+        } else if (level == 3) {
+            // hard
+            _computerSpeed = PAD_COM_ACCEL_HARD;
+            _computerAngle = PAD_COM_ANGLE_HARD;
+        } else if (level == 4) {
+            _computerSpeed = PAD_COM_ACCEL_RANK;
+            _computerAngle = PAD_COM_ANGLE_RANK;
+        }
+    } else {
+        if (level == 0 || _isTwoPlayer) {
+            return;
+        } else if (level == 1) {
+            // easy
+            _computerSpeed = COM_ACCEL_EASY;
+            _computerAngle = COM_ANGLE_EASY;
+        } else if (level == 2) {
+            // normal
+            _computerSpeed = COM_ACCEL_NORM;
+            _computerAngle = COM_ANGLE_NORM;
+        } else if (level == 3) {
+            // hard
+            _computerSpeed = COM_ACCEL_HARD;
+            _computerAngle = COM_ANGLE_HARD;
+        } else if (level == 4) {
+            _computerSpeed = COM_ACCEL_RANK;
+            _computerAngle = COM_ANGLE_RANK;
+        }
     }
 }
 
@@ -470,15 +530,52 @@ static inline BOOL isPositive(CGFloat num) {
     [self.view presentScene:menuScene transition:transition];
 }
 
+-(void)presentRankedScoreSceneWithScore:(int)score {
+    RAScoreUploadScene *scene = [[RAScoreUploadScene alloc] initWithSize:self.frame.size
+                                                               withScore:score];
+    SKTransition *transition = [SKTransition fadeWithDuration:1.12];
+    [self.view presentScene:scene transition:transition];
+}
+
 -(void)changeGameColors {
-    CGFloat red = ScalarRandomRange(0, 255);
-    CGFloat green = ScalarRandomRange(0, 255);
-    CGFloat blue = ScalarRandomRange(0, 255);
+    NSArray *gameColors = @[[SKColor colorWithRed:26.0/255.0f
+                                            green:188.0/255.0f
+                                             blue:156.0/255.0f
+                                            alpha:1.0f],
+                            [SKColor colorWithRed:46.0/255.0f
+                                            green:204.0/255.0f
+                                             blue:113.0/255.0f
+                                            alpha:1.0f],
+                            [SKColor colorWithRed:52.0/255.0f
+                                            green:152.0/255.0f
+                                             blue:219.0/255.0f
+                                            alpha:1.0f],
+                            [SKColor colorWithRed:155.0/255.0f
+                                            green:89.0/255.0f
+                                             blue:182.0/255.0f
+                                            alpha:1.0f],
+                            [SKColor colorWithRed:241.0/255.0f
+                                            green:196.0/255.0f
+                                             blue:15.0/255.0f
+                                            alpha:1.0f],
+                            [SKColor colorWithRed:230.0/255.0f
+                                            green:126.0/255.0f
+                                             blue:34.0/255.0f
+                                            alpha:1.0f],
+                            [SKColor colorWithRed:231.0/255.0f
+                                            green:76.0/255.0f
+                                             blue:60.0/255.0f
+                                            alpha:1.0f],
+                            [SKColor colorWithRed:236.0/255.0f
+                                            green:240.0/255.0f
+                                             blue:241.0/255.0f
+                                            alpha:1.0f],
+                            [SKColor colorWithRed:149.0/255.0f
+                                            green:165.0/255.0f
+                                             blue:166.0/255.0f
+                                            alpha:1.0f]];
     
-    SKColor *color = [SKColor colorWithRed:red / 255.0f
-                                          green:green / 255.0f
-                                           blue:blue / 255.0f
-                                          alpha:1.0f];
+    SKColor *color = gameColors[(int)ScalarRandomRange(0, [gameColors count] - 1)];
     
     [_leftPaddle runAction:[SKAction colorizeWithColor:color
                                       colorBlendFactor:1.0f
@@ -499,6 +596,17 @@ static inline BOOL isPositive(CGFloat num) {
                                    colorBlendFactor:1.0f
                                            duration:0.23]];
     }];
+}
+
+-(BOOL)isLargePhone {
+    int w = self.frame.size.width;
+    int h = self.frame.size.height;
+    NSLog(@"WIDTH: %d, HEIGHT: %d", w, h);
+    if (w > 640 || h > 1136) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 #pragma mark - Update
@@ -595,14 +703,23 @@ static inline BOOL isPositive(CGFloat num) {
                                   [SKAction removeFromParent]]]];
         if (isPositive(_ball.physicsBody.velocity.dx)) {
             // Left Scored
-            _leftScore++;
-            _leftScoreLabel.text = [NSString stringWithFormat:@"%d", _leftScore];
-            [self checkScores];
+            if (!_isRanked) {
+                _leftScore++;
+                _leftScoreLabel.text = [NSString stringWithFormat:@"%d", _leftScore];
+                [self checkScores];
+            } else {
+                [self presentRankedScoreSceneWithScore:(int)[RARankedScore sharedRankedScore].score];
+            }
         } else {
             // Right Scored
-            _rightScore++;
-            _rightScoreLabel.text = [NSString stringWithFormat:@"%d", _rightScore];
-            [self checkScores];
+            if (!_isRanked) {
+                _rightScore++;
+                _rightScoreLabel.text = [NSString stringWithFormat:@"%d", _rightScore];
+                [self checkScores];
+            } else {
+                [RARankedScore sharedRankedScore].score += 150;
+                _rightScoreLabel.text = [NSString stringWithFormat:@"%d", (int)[RARankedScore sharedRankedScore].score];
+            }
         }
         [self changeGameColors];
         [self createBall];
@@ -640,7 +757,16 @@ static inline BOOL isPositive(CGFloat num) {
 
 -(void)didBeginContact:(SKPhysicsContact *)contact {
     SKPhysicsBody *other = (contact.bodyA.categoryBitMask == EntityCategoryBall ? contact.bodyB : contact.bodyA);
-    if (other.categoryBitMask == EntityCategoryPaddle) {
+    if (other.categoryBitMask == EntityCategoryPaddle ||
+        other.categoryBitMask == EntityCategoryRankedPaddle) {
+        
+        
+        
+        if (other.categoryBitMask == EntityCategoryRankedPaddle && _isRanked) {
+            [RARankedScore sharedRankedScore].score += 25;
+            _rightScoreLabel.text = [NSString stringWithFormat:@"%d", (int)[RARankedScore sharedRankedScore].score];
+        }
+        
         /*
          *  Paddle logic blueprint
          *
