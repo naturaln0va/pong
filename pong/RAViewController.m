@@ -77,4 +77,10 @@
     return UIInterfaceOrientationMaskLandscape;
 }
 
+
+-(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationLandscapeRight;
+}
+
 @end
