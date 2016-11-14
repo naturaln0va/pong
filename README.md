@@ -1,4 +1,4 @@
-pong---Treehouse-Contest-Entry
+pong
 ==============================
 
 I made a simple Pong Game in Spritekit for a contest through Treehouse! :)
