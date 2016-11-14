@@ -25,6 +25,7 @@
     [[RAGameKitHelper sharedGameKitHelper] authenticateLocalPlayer];
     
     self.skView = [[SKView alloc] initWithFrame: self.view.bounds];
+    self.skView.multipleTouchEnabled = YES;
     
     self.launchScene = [RALaunchScreen sceneWithSize: self.skView.bounds.size];
     self.launchScene.scaleMode = SKSceneScaleModeAspectFill;
