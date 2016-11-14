@@ -1,10 +1,3 @@
-//
-//  RARankedScore.m
-//  pong
-//
-//  Created by Ryan Ackermann on 9/15/14.
-//  Copyright (c) 2014 Ryan Ackermann. All rights reserved.
-//
 
 #import "RARankedScore.h"
 
@@ -12,7 +5,8 @@ static NSString *const RARankedHighScoreKey = @"highscore";
 
 @implementation RARankedScore
 
-+(instancetype)sharedRankedScore {
++(instancetype) sharedRankedScore
+{
     static id sharedInstance = nil;
     
     static dispatch_once_t onceToken;
@@ -23,11 +17,15 @@ static NSString *const RARankedHighScoreKey = @"highscore";
     return sharedInstance;
 }
 
--(void)reset {
+
+-(void) reset
+{
     _score = 0;
 }
 
--(instancetype)initWithCoder:(NSCoder *)decoder {
+
+-(instancetype) initWithCoder: (NSCoder *)decoder
+{
     self = [self init];
     if (self) {
         _highScore = [decoder decodeIntegerForKey:RARankedHighScoreKey];
@@ -35,11 +33,15 @@ static NSString *const RARankedHighScoreKey = @"highscore";
     return self;
 }
 
--(void)encodeWithCoder:(NSCoder *)coder {
+
+-(void) encodeWithCoder: (NSCoder *)coder
+{
     [coder encodeInteger:_highScore forKey:RARankedHighScoreKey];
 }
 
-+(NSString*)filePath {
+
++(NSString*) filePath
+{
     static NSString* filePath = nil;
     if (!filePath) {
         filePath =
@@ -49,7 +51,8 @@ static NSString *const RARankedHighScoreKey = @"highscore";
     return filePath;
 }
 
-+(instancetype)loadInstance {
++(instancetype) loadInstance
+{
     NSData* decodedData = [NSData dataWithContentsOfFile: [RARankedScore filePath]];
     if (decodedData) {
         RARankedScore* gameData = [NSKeyedUnarchiver unarchiveObjectWithData:decodedData];
@@ -58,7 +61,9 @@ static NSString *const RARankedHighScoreKey = @"highscore";
     return [[RARankedScore alloc] init];
 }
 
--(void)save {
+
+-(void) save
+{
     NSData* encodedData = [NSKeyedArchiver archivedDataWithRootObject: self];
     [encodedData writeToFile:[RARankedScore filePath] atomically:YES];
 }

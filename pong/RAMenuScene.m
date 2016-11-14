@@ -1,10 +1,3 @@
-//
-//  RAMenuScene.m
-//  pong
-//
-//  Created by Ryan Ackermann on 8/30/14.
-//  Copyright (c) 2014 Ryan Ackermann. All rights reserved.
-//
 
 #import "RAMenuScene.h"
 #import "RAGameScene.h"
@@ -24,9 +17,10 @@
 #define ACTION_DURATION     0.67
 #define RANKED_LABEL_BUFFER 38.0
 
-NSString *const fontName = @"Enhanced Dot Digital-7";
-NSString *const twitterURL = @"https://twitter.com/naturaln0va";
-NSString *const treehouseURL = @"http://referrals.trhou.se/naturaln0va";
+NSString * const fontName = @"Enhanced Dot Digital-7";
+NSString * const twitterURL = @"https://twitter.com/naturaln0va";
+NSString * const treehouseURL = @"http://referrals.trhou.se/naturaln0va";
+NSString * const rateURL = @"itms-apps://itunes.apple.com/app/id919307928";
 
 @implementation RAMenuScene {
     SKLabelNode *_mainLabel;
@@ -49,6 +43,7 @@ NSString *const treehouseURL = @"http://referrals.trhou.se/naturaln0va";
     SKSpriteNode *_twitterIcon;
     SKSpriteNode *_gameCenterOnIcon;
     SKSpriteNode *_treehouseIcon;
+    SKSpriteNode *_rateIcon;
 }
 
 #pragma mark - Init
@@ -74,6 +69,7 @@ NSString *const treehouseURL = @"http://referrals.trhou.se/naturaln0va";
         _twitterIcon = [SKSpriteNode spriteNodeWithImageNamed:@"TwitterIcon"];
         _gameCenterOnIcon = [SKSpriteNode spriteNodeWithImageNamed:@"PixelGameCenter"];
         _treehouseIcon = [SKSpriteNode spriteNodeWithImageNamed:@"TreehoseHomeIcon"];
+        _rateIcon = [SKSpriteNode spriteNodeWithImageNamed: @"rate-menu-icon"];
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             [self setUpForPad];
@@ -86,6 +82,7 @@ NSString *const treehouseURL = @"http://referrals.trhou.se/naturaln0va";
         [self addChild:_mainLabel];
         [self addChild:_twitterIcon];
         [self addChild:_treehouseIcon];
+        [self addChild:_rateIcon];
         [self addChild:_gameCenterOnIcon];
         [self addChild:_layerPlayersPick];
         [self setUpActions];
@@ -117,6 +114,7 @@ NSString *const treehouseURL = @"http://referrals.trhou.se/naturaln0va";
                                              _gameCenterOnIcon.size.height / 2.0 + PAD_FRAME_PADDING);
     
     _treehouseIcon.position = CGPointMake(CGRectGetWidth(self.frame) - ((_treehouseIcon.size.width / 2.0) + PAD_FRAME_PADDING), CGRectGetHeight(self.frame) - ((_treehouseIcon.size.height / 2.0) + PAD_FRAME_PADDING));
+    _rateIcon.position = CGPointMake(_rateIcon.size.width / 2.0 + PAD_FRAME_PADDING, CGRectGetHeight(self.frame) - ((_rateIcon.size.height / 2.0) + PAD_FRAME_PADDING));
 }
 
 -(void)setUpForPhone {
@@ -141,6 +139,7 @@ NSString *const treehouseURL = @"http://referrals.trhou.se/naturaln0va";
                                              _gameCenterOnIcon.size.height / 2.0 + FRAME_PADDING);
     
     _treehouseIcon.position = CGPointMake(CGRectGetWidth(self.frame) - ((_treehouseIcon.size.width / 2.0) + FRAME_PADDING), CGRectGetHeight(self.frame) - ((_treehouseIcon.size.height / 2.0) + FRAME_PADDING));
+    _rateIcon.position = CGPointMake(_rateIcon.size.width / 2.0 + FRAME_PADDING, CGRectGetHeight(self.frame) - ((_treehouseIcon.size.height / 2.0) + FRAME_PADDING));
 }
 
 #pragma mark - Difficulty Setup
@@ -262,6 +261,9 @@ NSString *const treehouseURL = @"http://referrals.trhou.se/naturaln0va";
             [self runAction:_bleepSound];
         } else if (CGRectContainsPoint(_treehouseIcon.frame, location)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:treehouseURL]];
+            [self runAction:_bleepSound];
+        } else if (CGRectContainsPoint(_rateIcon.frame, location)) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:rateURL]];
             [self runAction:_bleepSound];
         } else if (CGRectContainsPoint(_easyLabel.frame, location)) {
             [self presentGamewithGameOption:@"easy"];

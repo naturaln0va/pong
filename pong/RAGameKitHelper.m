@@ -1,10 +1,3 @@
-//
-//  RAGameKitHelper.m
-//  pong
-//
-//  Created by Ryan Ackermann on 9/15/14.
-//  Copyright (c) 2014 Ryan Ackermann. All rights reserved.
-//
 
 #import "RAGameKitHelper.h"
 

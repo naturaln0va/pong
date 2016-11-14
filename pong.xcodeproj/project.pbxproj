@@ -11,19 +11,11 @@
 		4814CFF719AD2E5100EDD0C8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814CFF619AD2E5100EDD0C8 /* CoreGraphics.framework */; };
 		4814CFF919AD2E5100EDD0C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814CFF819AD2E5100EDD0C8 /* UIKit.framework */; };
 		4814CFFB19AD2E5100EDD0C8 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814CFFA19AD2E5100EDD0C8 /* SpriteKit.framework */; };
-		4814D00119AD2E5100EDD0C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4814CFFF19AD2E5100EDD0C8 /* InfoPlist.strings */; };
 		4814D00319AD2E5100EDD0C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D00219AD2E5100EDD0C8 /* main.m */; };
 		4814D00719AD2E5100EDD0C8 /* RAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D00619AD2E5100EDD0C8 /* RAAppDelegate.m */; };
-		4814D00A19AD2E5100EDD0C8 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4814D00819AD2E5100EDD0C8 /* Main_iPhone.storyboard */; };
-		4814D00D19AD2E5100EDD0C8 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4814D00B19AD2E5100EDD0C8 /* Main_iPad.storyboard */; };
 		4814D01019AD2E5100EDD0C8 /* RAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D00F19AD2E5100EDD0C8 /* RAViewController.m */; };
 		4814D01319AD2E5100EDD0C8 /* RAGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D01219AD2E5100EDD0C8 /* RAGameScene.m */; };
 		4814D01719AD2E5100EDD0C8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4814D01619AD2E5100EDD0C8 /* Images.xcassets */; };
-		4814D01E19AD2E5100EDD0C8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814D01D19AD2E5100EDD0C8 /* XCTest.framework */; };
-		4814D01F19AD2E5100EDD0C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814CFF419AD2E5100EDD0C8 /* Foundation.framework */; };
-		4814D02019AD2E5100EDD0C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4814CFF819AD2E5100EDD0C8 /* UIKit.framework */; };
-		4814D02819AD2E5100EDD0C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4814D02619AD2E5100EDD0C8 /* InfoPlist.strings */; };
-		4814D02A19AD2E5100EDD0C8 /* pongTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814D02919AD2E5100EDD0C8 /* pongTests.m */; };
 		481B698819AFB0F4008F27CD /* bong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 481B698719AFB0F4008F27CD /* bong.wav */; };
 		483D5BBA19B25C2F00BA627B /* RAMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 483D5BB919B25C2F00BA627B /* RAMenuScene.m */; };
 		483D5BBC19B2621800BA627B /* enhanced_dot_digital-7.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 483D5BBB19B2621800BA627B /* enhanced_dot_digital-7.ttf */; };
@@ -41,16 +33,6 @@
 		48FA160A19C7F6E8004A23D4 /* RARankedScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FA160919C7F6E8004A23D4 /* RARankedScore.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		4814D02119AD2E5100EDD0C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4814CFE919AD2E5100EDD0C8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4814CFF019AD2E5100EDD0C8;
-			remoteInfo = pong;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		4814CFF119AD2E5100EDD0C8 /* pong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4814CFF419AD2E5100EDD0C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,23 +40,15 @@
 		4814CFF819AD2E5100EDD0C8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4814CFFA19AD2E5100EDD0C8 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		4814CFFE19AD2E5100EDD0C8 /* pong-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "pong-Info.plist"; sourceTree = "<group>"; };
-		4814D00019AD2E5100EDD0C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4814D00219AD2E5100EDD0C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4814D00419AD2E5100EDD0C8 /* pong-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "pong-Prefix.pch"; sourceTree = "<group>"; };
 		4814D00519AD2E5100EDD0C8 /* RAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RAAppDelegate.h; sourceTree = "<group>"; };
 		4814D00619AD2E5100EDD0C8 /* RAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RAAppDelegate.m; sourceTree = "<group>"; };
-		4814D00919AD2E5100EDD0C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		4814D00C19AD2E5100EDD0C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		4814D00E19AD2E5100EDD0C8 /* RAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RAViewController.h; sourceTree = "<group>"; };
 		4814D00F19AD2E5100EDD0C8 /* RAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RAViewController.m; sourceTree = "<group>"; };
 		4814D01119AD2E5100EDD0C8 /* RAGameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RAGameScene.h; sourceTree = "<group>"; };
 		4814D01219AD2E5100EDD0C8 /* RAGameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RAGameScene.m; sourceTree = "<group>"; };
 		4814D01619AD2E5100EDD0C8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4814D01C19AD2E5100EDD0C8 /* pongTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pongTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4814D01D19AD2E5100EDD0C8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		4814D02519AD2E5100EDD0C8 /* pongTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "pongTests-Info.plist"; sourceTree = "<group>"; };
-		4814D02719AD2E5100EDD0C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4814D02919AD2E5100EDD0C8 /* pongTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pongTests.m; sourceTree = "<group>"; };
 		481B698719AFB0F4008F27CD /* bong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bong.wav; sourceTree = "<group>"; };
 		483D5BB819B25C2F00BA627B /* RAMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMenuScene.h; sourceTree = "<group>"; };
 		483D5BB919B25C2F00BA627B /* RAMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMenuScene.m; sourceTree = "<group>"; };
@@ -110,16 +84,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4814D01919AD2E5100EDD0C8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4814D01E19AD2E5100EDD0C8 /* XCTest.framework in Frameworks */,
-				4814D02019AD2E5100EDD0C8 /* UIKit.framework in Frameworks */,
-				4814D01F19AD2E5100EDD0C8 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -127,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				4814CFFC19AD2E5100EDD0C8 /* pong */,
-				4814D02319AD2E5100EDD0C8 /* pongTests */,
 				4814CFF319AD2E5100EDD0C8 /* Frameworks */,
 				4814CFF219AD2E5100EDD0C8 /* Products */,
 			);
@@ -137,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				4814CFF119AD2E5100EDD0C8 /* pong.app */,
-				4814D01C19AD2E5100EDD0C8 /* pongTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,7 +112,6 @@
 				4814CFF619AD2E5100EDD0C8 /* CoreGraphics.framework */,
 				4814CFF819AD2E5100EDD0C8 /* UIKit.framework */,
 				4814CFFA19AD2E5100EDD0C8 /* SpriteKit.framework */,
-				4814D01D19AD2E5100EDD0C8 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -158,10 +119,8 @@
 		4814CFFC19AD2E5100EDD0C8 /* pong */ = {
 			isa = PBXGroup;
 			children = (
-				48FA160119C7AA71004A23D4 /* GameKit */,
+				4876E0F31DD93E6200E2F12A /* Classes */,
 				4814D03419AD2E9600EDD0C8 /* Resources */,
-				4814D03319AD2E7F00EDD0C8 /* Interfaces */,
-				4873D06A19B3D1E5009AD55F /* Scenes */,
 				4814CFFD19AD2E5100EDD0C8 /* Supporting Files */,
 			);
 			path = pong;
@@ -170,46 +129,16 @@
 		4814CFFD19AD2E5100EDD0C8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				48B5BB7D19D5E898006EC79A /* Launch Screen.xib */,
+				4814D00219AD2E5100EDD0C8 /* main.m */,
+				4814CFFE19AD2E5100EDD0C8 /* pong-Info.plist */,
+				4814D00419AD2E5100EDD0C8 /* pong-Prefix.pch */,
 				4814D00E19AD2E5100EDD0C8 /* RAViewController.h */,
 				4814D00F19AD2E5100EDD0C8 /* RAViewController.m */,
 				4814D00519AD2E5100EDD0C8 /* RAAppDelegate.h */,
 				4814D00619AD2E5100EDD0C8 /* RAAppDelegate.m */,
-				4814CFFE19AD2E5100EDD0C8 /* pong-Info.plist */,
-				4814CFFF19AD2E5100EDD0C8 /* InfoPlist.strings */,
-				4814D00219AD2E5100EDD0C8 /* main.m */,
-				4814D00419AD2E5100EDD0C8 /* pong-Prefix.pch */,
-				48FA160819C7F6E8004A23D4 /* RARankedScore.h */,
-				48FA160919C7F6E8004A23D4 /* RARankedScore.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4814D02319AD2E5100EDD0C8 /* pongTests */ = {
-			isa = PBXGroup;
-			children = (
-				4814D02919AD2E5100EDD0C8 /* pongTests.m */,
-				4814D02419AD2E5100EDD0C8 /* Supporting Files */,
-			);
-			path = pongTests;
-			sourceTree = "<group>";
-		};
-		4814D02419AD2E5100EDD0C8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4814D02519AD2E5100EDD0C8 /* pongTests-Info.plist */,
-				4814D02619AD2E5100EDD0C8 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4814D03319AD2E7F00EDD0C8 /* Interfaces */ = {
-			isa = PBXGroup;
-			children = (
-				48B5BB7D19D5E898006EC79A /* Launch Screen.xib */,
-				4814D00819AD2E5100EDD0C8 /* Main_iPhone.storyboard */,
-				4814D00B19AD2E5100EDD0C8 /* Main_iPad.storyboard */,
-			);
-			name = Interfaces;
 			sourceTree = "<group>";
 		};
 		4814D03419AD2E9600EDD0C8 /* Resources */ = {
@@ -267,6 +196,25 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		4876E0F31DD93E6200E2F12A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4876E0F41DD93E6D00E2F12A /* Models */,
+				48FA160119C7AA71004A23D4 /* GameKit */,
+				4873D06A19B3D1E5009AD55F /* Scenes */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		4876E0F41DD93E6D00E2F12A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				48FA160819C7F6E8004A23D4 /* RARankedScore.h */,
+				48FA160919C7F6E8004A23D4 /* RARankedScore.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		48FA160119C7AA71004A23D4 /* GameKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,24 +244,6 @@
 			productReference = 4814CFF119AD2E5100EDD0C8 /* pong.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4814D01B19AD2E5100EDD0C8 /* pongTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4814D03019AD2E5100EDD0C8 /* Build configuration list for PBXNativeTarget "pongTests" */;
-			buildPhases = (
-				4814D01819AD2E5100EDD0C8 /* Sources */,
-				4814D01919AD2E5100EDD0C8 /* Frameworks */,
-				4814D01A19AD2E5100EDD0C8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4814D02219AD2E5100EDD0C8 /* PBXTargetDependency */,
-			);
-			name = pongTests;
-			productName = pongTests;
-			productReference = 4814D01C19AD2E5100EDD0C8 /* pongTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -321,19 +251,17 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RA;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Ryan Ackermann";
 				TargetAttributes = {
 					4814CFF019AD2E5100EDD0C8 = {
 						DevelopmentTeam = WK4Y48HVH2;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 1;
 							};
 						};
-					};
-					4814D01B19AD2E5100EDD0C8 = {
-						TestTargetID = 4814CFF019AD2E5100EDD0C8;
 					};
 				};
 			};
@@ -351,7 +279,6 @@
 			projectRoot = "";
 			targets = (
 				4814CFF019AD2E5100EDD0C8 /* pong */,
-				4814D01B19AD2E5100EDD0C8 /* pongTests */,
 			);
 		};
 /* End PBXProject section */
@@ -366,22 +293,11 @@
 				481B698819AFB0F4008F27CD /* bong.wav in Resources */,
 				4814D01719AD2E5100EDD0C8 /* Images.xcassets in Resources */,
 				48592D6719B558DD004CB5C9 /* FireWork1.wav in Resources */,
-				4814D00D19AD2E5100EDD0C8 /* Main_iPad.storyboard in Resources */,
 				48592D6319B50FD9004CB5C9 /* WinningConfetti.sks in Resources */,
-				4814D00A19AD2E5100EDD0C8 /* Main_iPhone.storyboard in Resources */,
 				485F443619B1596D005998B9 /* whiteParticle.png in Resources */,
 				48B5BB7E19D5E898006EC79A /* Launch Screen.xib in Resources */,
 				48592D6A19B56015004CB5C9 /* Bloop.wav in Resources */,
 				485D4C9819AEB7BE00D9EF75 /* blip.wav in Resources */,
-				4814D00119AD2E5100EDD0C8 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4814D01A19AD2E5100EDD0C8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4814D02819AD2E5100EDD0C8 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,58 +320,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4814D01819AD2E5100EDD0C8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4814D02A19AD2E5100EDD0C8 /* pongTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4814D02219AD2E5100EDD0C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4814CFF019AD2E5100EDD0C8 /* pong */;
-			targetProxy = 4814D02119AD2E5100EDD0C8 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		4814CFFF19AD2E5100EDD0C8 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4814D00019AD2E5100EDD0C8 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		4814D00819AD2E5100EDD0C8 /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4814D00919AD2E5100EDD0C8 /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		4814D00B19AD2E5100EDD0C8 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4814D00C19AD2E5100EDD0C8 /* Base */,
-			);
-			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		4814D02619AD2E5100EDD0C8 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4814D02719AD2E5100EDD0C8 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4804C70419C9529100175F21 /* Distribution */ = {
@@ -471,21 +336,26 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ryan Ackermann (WK4Y48HVH2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ryan Ackermann (WK4Y48HVH2)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PROVISIONING_PROFILE = "b5b303c7-b94b-4283-b2fd-048318ec2dd6";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -497,38 +367,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = PongIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ryan Ackermann (WK4Y48HVH2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ryan Ackermann (WK4Y48HVH2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pong/pong-Prefix.pch";
 				INFOPLIST_FILE = "pong/pong-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.naturaln0va.pong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "pong/pong-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Distribution;
-		};
-		4804C70619C9529100175F21 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/pong.app/pong";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pong/pong-Prefix.pch";
-				INFOPLIST_FILE = "pongTests/pongTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Distribution;
 		};
@@ -545,14 +397,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -565,7 +423,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "b5b303c7-b94b-4283-b2fd-048318ec2dd6";
 				SDKROOT = iphoneos;
@@ -586,21 +444,26 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ryan Ackermann (WK4Y48HVH2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ryan Ackermann (WK4Y48HVH2)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PROVISIONING_PROFILE = "b5b303c7-b94b-4283-b2fd-048318ec2dd6";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -612,15 +475,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = PongIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pong/pong-Prefix.pch";
 				INFOPLIST_FILE = "pong/pong-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.naturaln0va.pong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
@@ -634,60 +497,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = PongIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ryan Ackermann (WK4Y48HVH2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ryan Ackermann (WK4Y48HVH2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "pong/pong-Prefix.pch";
 				INFOPLIST_FILE = "pong/pong-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.naturaln0va.pong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "pong/pong-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		4814D03119AD2E5100EDD0C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/pong.app/pong";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pong/pong-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "pongTests/pongTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		4814D03219AD2E5100EDD0C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/pong.app/pong";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "pong/pong-Prefix.pch";
-				INFOPLIST_FILE = "pongTests/pongTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -710,16 +533,6 @@
 				4814D02E19AD2E5100EDD0C8 /* Debug */,
 				4814D02F19AD2E5100EDD0C8 /* Release */,
 				4804C70519C9529100175F21 /* Distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4814D03019AD2E5100EDD0C8 /* Build configuration list for PBXNativeTarget "pongTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4814D03119AD2E5100EDD0C8 /* Debug */,
-				4814D03219AD2E5100EDD0C8 /* Release */,
-				4804C70619C9529100175F21 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

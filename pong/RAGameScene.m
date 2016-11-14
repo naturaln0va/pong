@@ -1,10 +1,3 @@
-//
-//  RAMyScene.m
-//  pong
-//
-//  Created by Ryan Ackermann on 8/26/14.
-//  Copyright (c) 2014 Ryan Ackermann. All rights reserved.
-//
 
 #import "RAGameScene.h"
 #import "RAMenuScene.h"
@@ -116,21 +109,25 @@ static inline BOOL isPositive(CGFloat num) {
 
 #pragma mark - Init
 
--(id)initWithSize:(CGSize)size {    
-    return [self initWithSize:size withDifficulty:0];
+-(id) initWithSize: (CGSize)size
+{
+    return [self initWithSize: size withDifficulty: 0];
 }
 
--(instancetype)initWithSize:(CGSize)size withDifficulty:(int)difficulty {
-    if (self = [super initWithSize:size]) {
+-(instancetype) initWithSize: (CGSize)size withDifficulty: (int)difficulty
+{
+    if (self = [super initWithSize: size]) {
         self.backgroundColor = [SKColor blackColor];
         _worldNode = [SKNode node];
         _canSwtichY = true;
         
         if (difficulty == 0) {
             _isTwoPlayer = YES;
-        } else if (difficulty == 4) {
+        }
+        else if (difficulty == 4) {
             _isRanked = YES;
-        } else {
+        }
+        else {
             _isTwoPlayer = NO;
         }
         
@@ -145,45 +142,47 @@ static inline BOOL isPositive(CGFloat num) {
         [self createCenterLine];
         [self createSounds];
         [self createActions];
-        [self setIntelegenceLevel:difficulty];
+        [self setIntelegenceLevel: difficulty];
         
         [self resetScores];
         
-        [self addChild:_worldNode];
+        [self addChild: _worldNode];
         
-        [self runAction:_spawnBall];
+        [self runAction: _spawnBall];
     }
     return self;
 }
 
--(void)createActions {
-    _spawnBall = [SKAction sequence:@[
-                                      [SKAction waitForDuration:1.5],
-                                      [SKAction runBlock:^{
+-(void) createActions
+{
+    _spawnBall = [SKAction sequence:@[[SKAction waitForDuration:1.5], [SKAction runBlock:^{
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             _ball.physicsBody.velocity = CGVectorMake(IPAD_BALL_SPEED * randomSign(),
                                                       IPAD_BALL_SPEED);
-        } else {
+        }
+        else {
             _ball.physicsBody.velocity = CGVectorMake(BALL_INITIAL_SPEED * randomSign(),
                                                       BALL_INITIAL_SPEED);
         }
     }]]];
 }
 
--(void)createCenterLine {
+-(void) createCenterLine
+{
     CGFloat middleLineWidth;
     CGFloat middleLineHeight;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         middleLineWidth = 5.0;
         middleLineHeight = 31.0;
-    } else {
+    }
+    else {
         middleLineWidth = 3.0;
         middleLineHeight = 20.0;
     }
     NSInteger numberOfLines = self.frame.size.height / (2*middleLineHeight);
     CGPoint linePosition = CGPointMake(self.frame.size.width / 2.0, middleLineHeight * 1.5);
-    for (NSInteger i = 0; i < numberOfLines; i++)
-    {
+    
+    for (NSInteger i = 0; i < numberOfLines; i++) {
         SKSpriteNode *lineNode = [SKSpriteNode spriteNodeWithColor:[SKColor colorWithWhite:1.0 alpha:0.5] size:CGSizeMake(middleLineWidth, middleLineHeight)];
         lineNode.position = linePosition;
         lineNode.name = @"centerLine";
@@ -192,34 +191,35 @@ static inline BOOL isPositive(CGFloat num) {
     }
 }
 
--(void)createButton {
-    _menuButton = [SKSpriteNode spriteNodeWithImageNamed:@"menuButton"];
-    _menuButton.position = CGPointMake(CGRectGetMidX(self.frame),
-                                       CGRectGetHeight(self.frame) - (_menuButton.size.height / 2.0 + TOP_FRAME_PADDING) + 24);
+-(void) createButton
+{
+    _menuButton = [SKSpriteNode spriteNodeWithImageNamed: @"menuButton"];
+    _menuButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame) - (_menuButton.size.height / 2.0 + TOP_FRAME_PADDING) + 24);
     _menuButton.anchorPoint = CGPointMake(0.5, 0.5);
     _menuButton.xScale = 1.5f;
     _menuButton.yScale = 1.5f;
-    [_worldNode addChild:_menuButton];
+    [_worldNode addChild: _menuButton];
 }
 
--(void)createLabels {
+-(void) createLabels
+{
     if (!_isRanked) {
         _leftScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
         _leftScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame)+ _leftScoreLabel.frame.size.height / 2.0 - MIDDLE_PADDING, CGRectGetMaxY(self.frame) + _leftScoreLabel.frame.size.height / 2.0 - TOP_FRAME_PADDING);
         _leftScoreLabel.fontColor = [SKColor whiteColor];
         _leftScoreLabel.fontSize = 37.0f;
         _leftScoreLabel.text = @"0";
-        [_worldNode addChild:_leftScoreLabel];
+        [_worldNode addChild: _leftScoreLabel];
     }
     
-    _rightScoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
+    _rightScoreLabel = [SKLabelNode labelNodeWithFontNamed: @"Enhanced Dot Digital-7"];
     _rightScoreLabel.position = CGPointMake(CGRectGetMidX(self.frame)+ _rightScoreLabel.frame.size.height / 2.0 + MIDDLE_PADDING, CGRectGetMaxY(self.frame) + _rightScoreLabel.frame.size.height / 2.0 - TOP_FRAME_PADDING);
     _rightScoreLabel.fontColor = [SKColor whiteColor];
     _rightScoreLabel.fontSize = 37.0f;
     _rightScoreLabel.text = @"0";
-    [_worldNode addChild:_rightScoreLabel];
+    [_worldNode addChild: _rightScoreLabel];
     
-    _winningLabel = [SKLabelNode labelNodeWithFontNamed:@"Enhanced Dot Digital-7"];
+    _winningLabel = [SKLabelNode labelNodeWithFontNamed: @"Enhanced Dot Digital-7"];
     _winningLabel.position = CGPointMake(CGRectGetMidX(self.frame),
                                          CGRectGetMidY(self.frame) - 35.0f);
     _winningLabel.fontColor = [SKColor whiteColor];
@@ -228,31 +228,28 @@ static inline BOOL isPositive(CGFloat num) {
     _winningLabel.zPosition = 100.0f;
 }
 
--(void)createSounds {
-    _bounceSound = [SKAction playSoundFileNamed:@"Bloop.wav" waitForCompletion:NO];
-    _bongSound = [SKAction playSoundFileNamed:@"bong.wav" waitForCompletion:NO];
-    _fireWorkSound1 = [SKAction playSoundFileNamed:@"FireWork1.wav" waitForCompletion:NO];
-    _fireWorkSound2 = [SKAction playSoundFileNamed:@"FireWork2.wav" waitForCompletion:NO];
+-(void) createSounds
+{
+    _bounceSound = [SKAction playSoundFileNamed: @"Bloop.wav" waitForCompletion: NO];
+    _bongSound = [SKAction playSoundFileNamed: @"bong.wav" waitForCompletion: NO];
+    _fireWorkSound1 = [SKAction playSoundFileNamed: @"FireWork1.wav" waitForCompletion: NO];
+    _fireWorkSound2 = [SKAction playSoundFileNamed: @"FireWork2.wav" waitForCompletion: NO];
 }
 
--(void)createBall {
+-(void) createBall
+{
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        _ball = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
-                                             size:CGSizeMake(BALL_SIZE * IPAD_MULT_FACTOR,
-                                                             BALL_SIZE * IPAD_MULT_FACTOR)];
-        _ball.position = CGPointMake(CGRectGetMidX(self.frame),
-                                     ScalarRandomRange(PADDLE_PADDING * IPAD_MULT_FACTOR, CGRectGetMaxY(self.frame) - PADDLE_PADDING * IPAD_MULT_FACTOR));
-    } else {
-        _ball = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
-                                             size:CGSizeMake(BALL_SIZE,
-                                                             BALL_SIZE)];
-        _ball.position = CGPointMake(CGRectGetMidX(self.frame),
-                                     ScalarRandomRange(PADDLE_PADDING, CGRectGetMaxY(self.frame) - PADDLE_PADDING));
+        _ball = [SKSpriteNode spriteNodeWithColor: [SKColor whiteColor] size: CGSizeMake(BALL_SIZE * IPAD_MULT_FACTOR, BALL_SIZE * IPAD_MULT_FACTOR)];
+        _ball.position = CGPointMake(CGRectGetMidX(self.frame), ScalarRandomRange(PADDLE_PADDING * IPAD_MULT_FACTOR, CGRectGetMaxY(self.frame) - PADDLE_PADDING * IPAD_MULT_FACTOR));
+    }
+    else {
+        _ball = [SKSpriteNode spriteNodeWithColor: [SKColor whiteColor] size: CGSizeMake(BALL_SIZE, BALL_SIZE)];
+        _ball.position = CGPointMake(CGRectGetMidX(self.frame), ScalarRandomRange(PADDLE_PADDING, CGRectGetMaxY(self.frame) - PADDLE_PADDING));
     }
     _ball.anchorPoint = CGPointMake(0.5, 0.5);
     _ball.zPosition = LayerBall;
     
-    _ball.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_ball.size];
+    _ball.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize: _ball.size];
     _ball.physicsBody.linearDamping = 0.0f;
     _ball.physicsBody.velocity = CGVectorMake(0.0f, 0.0f);
     _ball.physicsBody.friction = 0.0f;
@@ -263,28 +260,21 @@ static inline BOOL isPositive(CGFloat num) {
     _ball.physicsBody.contactTestBitMask = EntityCategoryPaddle;
     _ball.physicsBody.usesPreciseCollisionDetection = YES;
     
-    //[self addParticleToNode:_ball withName:@"BallTrail"];
-    
-    [_worldNode addChild:_ball];
+    [_worldNode addChild: _ball];
 }
 
--(void)createRightPaddle {
+-(void) createRightPaddle
+{
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        _rightPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
-                                                       size:CGSizeMake(PADDLE_WIDTH * IPAD_MULT_FACTOR,
-                                                                       PADDLE_HEIGHT * IPAD_MULT_FACTOR)];
-        _rightPaddle.position = CGPointMake(PADDLE_PADDING * IPAD_MULT_FACTOR,
-                                               CGRectGetMidY(self.frame));
-    } else if([self isLargePhone]) {
-        _rightPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
-                                                    size:CGSizeMake(PADDLE_WIDTH_3X,
-                                                                    PADDLE_HEIGHT_3X)];
-        _rightPaddle.position = CGPointMake(PADDLE_PADDING,
-                                            CGRectGetMidY(self.frame));
-    } else {
-        _rightPaddle = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
-                                                       size:CGSizeMake(PADDLE_WIDTH,
-                                                                       PADDLE_HEIGHT)];
+        _rightPaddle = [SKSpriteNode spriteNodeWithColor: [SKColor whiteColor] size: CGSizeMake(PADDLE_WIDTH * IPAD_MULT_FACTOR, PADDLE_HEIGHT * IPAD_MULT_FACTOR)];
+        _rightPaddle.position = CGPointMake(PADDLE_PADDING * IPAD_MULT_FACTOR, CGRectGetMidY(self.frame));
+    }
+    else if([self isLargePhone]) {
+        _rightPaddle = [SKSpriteNode spriteNodeWithColor: [SKColor whiteColor] size: CGSizeMake(PADDLE_WIDTH_3X, PADDLE_HEIGHT_3X)];
+        _rightPaddle.position = CGPointMake(PADDLE_PADDING, CGRectGetMidY(self.frame));
+    }
+    else {
+        _rightPaddle = [SKSpriteNode spriteNodeWithColor: [SKColor whiteColor] size: CGSizeMake(PADDLE_WIDTH, PADDLE_HEIGHT)];
         _rightPaddle.position = CGPointMake(PADDLE_PADDING,
                                                CGRectGetMidY(self.frame));
     }
@@ -342,7 +332,26 @@ static inline BOOL isPositive(CGFloat num) {
         CGPoint location = [touch locationInNode:self];
         
         if (CGRectContainsPoint(_menuButton.frame, location)) {
-            [self returnToMenu];
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle: nil 
+                                                                        message: @"Game Paused"
+                                                                 preferredStyle: UIAlertControllerStyleAlert];
+            
+            [ac addAction: [UIAlertAction actionWithTitle: @"Main Menu"
+                                                    style: UIAlertActionStyleDefault
+                                                  handler: ^
+                            (UIAlertAction * _Nonnull action) {
+                                [self returnToMenu];
+                            }]];
+            
+            [ac addAction: [UIAlertAction actionWithTitle: @"Resume"
+                                                    style: UIAlertActionStyleCancel
+                                                  handler: ^
+                            (UIAlertAction * _Nonnull action) {
+                                self.scene.paused = NO;
+                            }]];
+            
+            [self.scene.view.window.rootViewController presentViewController: ac animated: YES completion: nil];
+            self.scene.paused = YES;
         }
         
         if(_isTwoPlayer) {
@@ -598,13 +607,15 @@ static inline BOOL isPositive(CGFloat num) {
     }];
 }
 
--(BOOL)isLargePhone {
+-(BOOL) isLargePhone
+{
     int w = self.frame.size.width;
     int h = self.frame.size.height;
-    NSLog(@"WIDTH: %d, HEIGHT: %d", w, h);
+    
     if (w > 640 || h > 1136) {
         return YES;
-    } else {
+    }
+    else {
         return NO;
     }
 }
